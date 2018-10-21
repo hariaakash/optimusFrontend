@@ -5,7 +5,7 @@ angular.module('optimusApp')
             $('#btnLoad').button('loading');
             $http({
                 method: 'POST',
-                url: $rootScope.apiUrl + 'user/login',
+                url: $rootScope.apiUrl + 'users/login',
                 data: $scope.user
             }).then(function(res) {
                 if (res.data.status == true) {

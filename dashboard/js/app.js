@@ -1,16 +1,16 @@
 angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad'])
-    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    .config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
         cfpLoadingBarProvider.spinnerTemplate = '<div class="preloader"><img class="icon" src="../img/logo.png" style="width: 64px; height: 64px;"></div>';
     }])
-    .filter('range', function() {
-        return function(input, total) {
+    .filter('range', function () {
+        return function (input, total) {
             total = parseInt(total);
             for (var i = 0; i < total; i++)
                 input.push(i);
             return input;
         };
     })
-    .config(function($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/login');
         $stateProvider
             .state("dashboard", {
@@ -23,7 +23,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/home.html",
                 controller: "homeCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'HomePage',
                             files: ['./ctrls/home.js', './plugins/ng-file-upload/ng-file-upload.min.js']
@@ -36,7 +36,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/manage.html",
                 controller: "manageCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Server Manage',
                             files: ['./ctrls/manage.js', './plugins/highcharts/highstock.js', './plugins/blockUI/jquery.blockUI.min.js', './plugins/angular-clipboard/angular-clipboard.min.js']
@@ -49,7 +49,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/terminal.html",
                 controller: "terminalCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Server Terminal',
                             files: ['./ctrls/terminal.js']
@@ -62,7 +62,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/fileManager.html",
                 controller: "fileManagerCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Server File Manager',
                             files: ['./ctrls/fileManager.js']
@@ -75,7 +75,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/cron.html",
                 controller: "cronCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Server Cron',
                             files: ['./ctrls/cron.js', './plugins/cron-gen/cron-gen.min.js']
@@ -88,7 +88,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/startupScript.html",
                 controller: "startupScriptCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         name: 'Server StartupScript'
                         return $ocLazyLoad.load('./ctrls/startupScript.js');
                     }]
@@ -99,7 +99,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/metrics.html",
                 controller: "metricsCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Server Metrics',
                             files: ['./ctrls/metrics.js', './plugins/highcharts/highstock.js', './plugins/angular-clipboard/angular-clipboard.min.js', './plugins/pagination/dirPagination.js']
@@ -112,7 +112,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/serverActivity.html",
                 controller: "serverActivityCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Server Activity',
                             files: ['./ctrls/serverActivity.js', './plugins/pagination/dirPagination.js']
@@ -130,7 +130,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/editProfile.html",
                 controller: "editProfileCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'EditProfile',
                             files: ['./ctrls/editProfile.js', './plugins/angular-country-state/angular-country-state.min.js']
@@ -143,7 +143,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/changePasswordAccount.html",
                 controller: "changePasswordAccountCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'changePasswordAccount',
                             files: ['./ctrls/changePasswordAccount.js']
@@ -156,7 +156,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/activity.html",
                 controller: "activityCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Activity',
                             files: ['./ctrls/activity.js', './plugins/pagination/dirPagination.js']
@@ -174,7 +174,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/addCredit.html",
                 controller: "addCreditCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Add Credit',
                             files: ['./ctrls/addCredit.js']
@@ -187,7 +187,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/history.html",
                 controller: "historyCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'History',
                             files: ['./ctrls/history.js', './plugins/pagination/dirPagination.js']
@@ -200,7 +200,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/invoice.html",
                 controller: "invoiceCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Invoice',
                             files: ['./ctrls/invoice.js', './plugins/jquery.PrintArea/jquery.PrintArea.min.js']
@@ -213,7 +213,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/processPayment.html",
                 controller: "processPaymentCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Process Payment',
                             files: ['./ctrls/processPayment.js']
@@ -226,7 +226,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/team.html",
                 controller: "teamCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Team',
                             files: ['./ctrls/team.js', './plugins/ng-file-upload/ng-file-upload.min.js', './plugins/pagination/dirPagination.js']
@@ -239,7 +239,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/tapi.html",
                 controller: "tapiCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Team Api',
                             files: ['./ctrls/tapi.js', './plugins/angular-clipboard/angular-clipboard.min.js']
@@ -252,7 +252,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/tmanage.html",
                 controller: "tmanageCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Team Server Manage',
                             files: ['./ctrls/tmanage.js', './plugins/highcharts/highstock.js', './plugins/blockUI/jquery.blockUI.min.js', './plugins/angular-clipboard/angular-clipboard.min.js']
@@ -265,7 +265,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/tterminal.html",
                 controller: "tterminalCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Team Server Terminal',
                             files: ['./ctrls/tterminal.js']
@@ -277,7 +277,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/tfileManager.html",
                 controller: "tfileManagerCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Team Server File Manager',
                             files: ['./ctrls/tfileManager.js']
@@ -290,7 +290,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/tcron.html",
                 controller: "tcronCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Team Server Cron',
                             files: ['./ctrls/tcron.js', './plugins/cron-gen/cron-gen.min.js']
@@ -303,7 +303,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/tstartupScript.html",
                 controller: "tstartupScriptCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         name: 'Team Server StartupScript'
                         return $ocLazyLoad.load('./ctrls/tstartupScript.js');
                     }]
@@ -314,7 +314,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/tmetrics.html",
                 controller: "tmetricsCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Team Server Metrics',
                             files: ['./ctrls/tmetrics.js', './plugins/highcharts/highstock.js', './plugins/angular-clipboard/angular-clipboard.min.js', './plugins/pagination/dirPagination.js']
@@ -326,7 +326,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/tserverActivity.html",
                 controller: "tserverActivityCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Team Server Activity',
                             files: ['./ctrls/tserverActivity.js', './plugins/pagination/dirPagination.js']
@@ -339,7 +339,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/support.html",
                 controller: "supportCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Support',
                             files: ['./ctrls/support.js']
@@ -352,7 +352,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/ticket.html",
                 controller: "ticketCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Ticket',
                             files: ['./ctrls/ticket.js']
@@ -365,7 +365,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/api.html",
                 controller: "apiCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Api',
                             files: ['./ctrls/api.js', './plugins/angular-clipboard/angular-clipboard.min.js']
@@ -378,7 +378,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/register.html",
                 controller: "registerCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Register',
                             files: ['./ctrls/register.js', './css/login-register.css']
@@ -391,7 +391,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/login.html",
                 controller: "loginCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Login',
                             files: ['./ctrls/login.js', './css/login-register.css']
@@ -404,7 +404,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/verifyEmail.html",
                 controller: "verifyEmailCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load('./ctrls/verifyEmail.js');
                     }]
                 }
@@ -414,7 +414,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/sendEmailVerification.html",
                 controller: "sendEmailVerificationCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load('./ctrls/sendEmailVerification.js');
                     }]
                 }
@@ -424,7 +424,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/forgotPassword.html",
                 controller: "forgotPasswordCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load('./ctrls/forgotPassword.js');
                     }]
                 }
@@ -434,7 +434,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/changePassword.html",
                 controller: "changePasswordCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load('./ctrls/changePassword.js');
                     }]
                 }
@@ -444,7 +444,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/embed.html",
                 controller: "embedCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Embed',
                             files: ['./ctrls/embed.js', './plugins/highcharts/highstock.js']
@@ -457,7 +457,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/tembed.html",
                 controller: "tembedCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'Team Embed',
                             files: ['./ctrls/tembed.js', './plugins/highcharts/highstock.js']
@@ -470,41 +470,32 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
 
 // Global Controller
 angular.module('optimusApp')
-    .controller('globalCtrl', function($scope, $rootScope, $location, $http, $state, $ocLazyLoad) {
-        // $rootScope.apiUrl = 'http://localhost:3000/webapi/';
-        $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
+    .controller('globalCtrl', function ($rootScope, $location, $http, $state, $ocLazyLoad) {
+        $rootScope.apiUrl = 'http://localhost:8080/webapi/';
+        // $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
         $ocLazyLoad.load(['./plugins/sweetalert2/sweetalert2.min.js', './plugins/sweetalert2/sweetalert2.min.css', './plugins/toast/toast.min.js', './plugins/toast/toast.min.css']);
-        $rootScope.checkAuth = function(force) {
+        $rootScope.checkAuth = function (force) {
             if (Cookies.get('authKey')) {
                 $rootScope.authKey = Cookies.get('authKey');
                 if (!$rootScope.signStatus || force) {
                     $http({
                             method: 'GET',
-                            url: $rootScope.apiUrl + 'user',
+                            url: $rootScope.apiUrl + 'users',
                             params: {
                                 authKey: $rootScope.authKey
                             }
                         })
-                        .then(function(res) {
+                        .then(function (res) {
                             if (res.data.status == true) {
                                 $rootScope.homeData = res.data.data;
-                                $rootScope.teamIndex = $rootScope.homeData.teams.findIndex(x => x._id == $rootScope.teamId);
-                                if (!$rootScope.homeData.info.set)
-                                    $state.go('dashboard.account.editProfile')
                             } else {
                                 $rootScope.logout();
                                 $rootScope.toast('Error', res.data.msg, 'error');
                             }
-                        }, function(res) {
+                        }, function (res) {
                             $('#btnLoad').button('reset');
                             $rootScope.toast('Failed', "Some error occurred, try again.", "error");
                         });
-                } else if ($rootScope.homeData) {
-                    if (!$rootScope.homeData.info.set) {
-                        $state.go('dashboard.account.editProfile')
-                    } else {
-                        $rootScope.teamIndex = $rootScope.homeData.teams.findIndex(x => x._id == $rootScope.teamId);
-                    }
                 }
                 var path = $location.path();
                 if (path == '/login' || path == '/register' || path == '/verifyEmail')
@@ -518,21 +509,21 @@ angular.module('optimusApp')
                     $state.go('login');
             }
         };
-        $rootScope.logout = function(x) {
+        $rootScope.logout = function (x) {
             Cookies.remove('authKey');
             delete $rootScope.authKey;
             $rootScope.signStatus = false;
             if (x) $rootScope.toast('Success', 'Logged out !!', "info");
             $state.go('login');
         };
-        $rootScope.openModal = function(x) {
+        $rootScope.openModal = function (x) {
             $('#' + x).modal('show');
         };
-        $rootScope.closeModal = function(x) {
+        $rootScope.closeModal = function (x) {
             $('.modal-backdrop').remove();
             $('body').removeClass('modal-open');
         };
-        $rootScope.toast = function(heading, text, status, hideAfter = 10000) {
+        $rootScope.toast = function (heading, text, status, hideAfter = 10000) {
             // info, warning, error, success
             if (hideAfter == 0) hideAfter = false;
             if (text == 'Account not found !!') {
@@ -549,7 +540,7 @@ angular.module('optimusApp')
                 stack: 1
             });
         };
-        $rootScope.createTeam = function(x) {
+        $rootScope.createTeam = function (x) {
             $('#btnLoad').button('loading');
             $http({
                     method: 'POST',
@@ -559,7 +550,7 @@ angular.module('optimusApp')
                         tName: x
                     }
                 })
-                .then(function(res) {
+                .then(function (res) {
                     if (res.data.status == true) {
                         $rootScope.closeModal();
                         $state.reload();
@@ -569,7 +560,7 @@ angular.module('optimusApp')
                         $('#btnLoad').button('reset');
                         $rootScope.toast('Failed', res.data.msg, "error");
                     }
-                }, function(res) {
+                }, function (res) {
                     $rootScope.toast('Failed', "Some error occurred, try again.", "error");
                 });
         };

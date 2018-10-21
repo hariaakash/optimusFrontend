@@ -9,7 +9,7 @@ angular.module('optimusApp')
             if ($scope.data.key && $scope.data.email) {
                 $http({
                         method: 'POST',
-                        url: $rootScope.apiUrl + 'user/verifyEmail',
+                        url: $rootScope.apiUrl + 'users/verifyEmail',
                         data: $scope.data
                     })
                     .then(function(res) {

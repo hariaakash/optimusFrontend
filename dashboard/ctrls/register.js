@@ -10,7 +10,7 @@ angular.module('optimusApp')
                 };
                 $http({
                     method: 'POST',
-                    url: $rootScope.apiUrl + 'user/register',
+                    url: $rootScope.apiUrl + 'users/register',
                     data: $scope.data
                 }).then(function(res) {
                     if (res.data.status == true) {
