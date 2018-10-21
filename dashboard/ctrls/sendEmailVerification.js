@@ -1,10 +1,10 @@
 angular.module('optimusApp')
-    .controller('sendEmailVerificationCtrl', function($scope, $location, $http, $rootScope) {
+    .controller('sendEmailVerificationCtrl', function($scope, $state, $http, $rootScope) {
         $rootScope.checkAuth();
         $scope.sendEmailVerification = function() {
             $http({
                     method: 'POST',
-                    url: $rootScope.apiUrl + 'user/sendEmailVerification',
+                    url: $rootScope.apiUrl + 'users/sendEmailVerification',
                     data: $scope.data
                 })
                 .then(function(res) {
