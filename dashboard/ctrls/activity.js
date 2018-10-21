@@ -1,5 +1,5 @@
 angular.module('optimusApp')
-    .controller('activityCtrl', function($rootScope, $location, $http, $scope, $timeout, $state) {
+    .controller('activityCtrl', function($rootScope, $http, $scope, $state) {
         $rootScope.checkAuth();
         $rootScope.profile = true;
         $scope.currentPage = 1;
@@ -7,7 +7,7 @@ angular.module('optimusApp')
         $scope.getActivityInfo = function() {
             $http({
                     method: 'GET',
-                    url: $rootScope.apiUrl + 'user/activity',
+                    url: $rootScope.apiUrl + 'users/activity',
                     params: {
                         authKey: $rootScope.authKey
                     }

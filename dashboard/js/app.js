@@ -513,7 +513,7 @@ angular.module('optimusApp')
             Cookies.remove('authKey');
             delete $rootScope.authKey;
             $rootScope.signStatus = false;
-            if (x) $rootScope.toast('Success', 'Logged out !!', "info");
+            if (x) $rootScope.toast('Success', 'Logged out.', "info");
             $state.go('login');
         };
         $rootScope.openModal = function (x) {

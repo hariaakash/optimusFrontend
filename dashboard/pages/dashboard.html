@@ -43,10 +43,10 @@
 includedByState) || ('dashboard.manage' | includedByState) || ('dashboard.terminal' | includedByState) || ('dashboard.cron' | includedByState) || ('dashboard.metrics' | includedByState) || ('dashboard.startupScript' | includedByState) || ('dashboard.serverActivity' | includedByState) || ('dashboard.fileManager' | includedByState)}"><i class="fa fa-dashboard fa-fw"></i> <span class="hide-menu">Dashboard</span></a>
 					<a ui-sref="dashboard.team({teamId: teamId})" ng-if="!profile" ng-class="{active: ('dashboard.team' | includedByState) || ('dashboard.tmanage' | includedByState) || ('dashboard.tterminal' | includedByState) || ('dashboard.tcron' | includedByState) || ('dashboard.tmetrics' | includedByState) || ('dashboard.tstartupScript' | includedByState) || ('dashboard.tserverActivity' | includedByState) || ('dashboard.tfileManager' | includedByState)}"><i class="fa fa-dashboard fa-fw"></i> <span class="hide-menu">Team</span></a>
 				</li>
-				<li ng-show="profile">
+				<!-- <li ng-show="profile">
 					<a ui-sref="dashboard.account.activity" ng-class="{active: ('dashboard.account.editProfile' |
 includedByState) || ('dashboard.account.changePasswordAccount' | includedByState) || ('dashboard.account.activity' | includedByState)}"><i class="fa fa-user fa-fw"></i> <span class="hide-menu">Account</span></a>
-				</li>
+				</li> -->
 				<!-- <li ng-show="profile">
 					<a ui-sref="dashboard.billing.addCredit" ng-class="{active: ('dashboard.billing.addCredit' |
 includedByState) || ('dashboard.billing.history' | includedByState) || ('dashboard.invoice' | includedByState)}"><i class="fa fa-money fa-fw"></i> <span class="hide-menu">Billing</span></a>
