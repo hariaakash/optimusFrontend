@@ -26,7 +26,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                     loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: 'HomePage',
-                            files: ['./ctrls/home.js', './plugins/ng-file-upload/ng-file-upload.min.js']
+                            files: ['./ctrls/home.js']
                         })
                     }]
                 }
@@ -473,6 +473,7 @@ angular.module('optimusApp')
     .controller('globalCtrl', function ($rootScope, $location, $http, $state, $ocLazyLoad) {
         $rootScope.apiUrl = 'http://localhost:8080/webapi/';
         // $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
+        $rootScope.copyrightYear = new Date().getFullYear();
         $ocLazyLoad.load(['./plugins/sweetalert2/sweetalert2.min.js', './plugins/sweetalert2/sweetalert2.min.css', './plugins/toast/toast.min.js', './plugins/toast/toast.min.css']);
         $rootScope.checkAuth = function (force) {
             if (Cookies.get('authKey')) {
