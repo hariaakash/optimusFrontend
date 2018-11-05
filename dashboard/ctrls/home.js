@@ -1,8 +1,8 @@
 angular.module('optimusApp')
-    .controller('homeCtrl', function ($rootScope, $scope, $http, $state, $interval) {
+    .controller('homeCtrl', ($rootScope, $scope, $http, $state, $interval) => {
         $rootScope.checkAuth();
         $rootScope.profile = true;
-        $scope.deployApp = function () {
+        $scope.deployApp = () => {
             $scope.data = {
                 authKey: $rootScope.authKey,
                 nameCustom: $scope.deployAppForm.nameCustom,
@@ -33,14 +33,14 @@ angular.module('optimusApp')
                 $rootScope.toast('Failed', 'Invalid git url.', 'error');
             }
         };
-        $scope.sendRequest = function () {
+        $scope.sendRequest = () => {
             $('#btnLoad').button('loading');
             $http({
                     method: 'POST',
                     url: $rootScope.apiUrl + 'containers/create',
                     data: $scope.data
                 })
-                .then(function (res) {
+                .then((res) => {
                     if (res.data.status == true) {
                         $rootScope.closeModal();
                         $state.reload();
@@ -50,12 +50,12 @@ angular.module('optimusApp')
                         $('#btnLoad').button('reset');
                         $rootScope.toast('Failed', res.data.msg, "error");
                     }
-                }, function (res) {
+                }, (res) => {
                     $('#btnLoad').button('reset');
                     $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                 });
         };
-        $scope.getContainers = function () {
+        $scope.getContainers = () => {
             $http({
                     method: 'GET',
                     url: $rootScope.apiUrl + 'users/containers',
@@ -63,33 +63,33 @@ angular.module('optimusApp')
                         authKey: $rootScope.authKey
                     }
                 })
-                .then(function (res) {
+                .then((res) => {
                     if (res.data.status == true) {
                         $rootScope.homeData.containers = res.data.data;
                     } else {
                         $rootScope.homeData.containers = [];
                         $rootScope.toast('Error', res.data.msg, 'error');
                     }
-                }, function (res) {
+                }, () => {
                     $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                 });
         };
-        $interval(function () {
+        $interval(() => {
             $rootScope.homeData.containers.forEach((container) => {
                 $http({
                         method: 'GET',
-                        url: $rootScope.apiUrl + 'containers/',
+                        url: $rootScope.apiUrl + 'containers/stats',
                         params: {
                             authKey: $rootScope.authKey,
                             containerId: container._id,
                         }
                     })
-                    .then(function (res) {
+                    .then((res) => {
                         if (res.data.status == true) container.stats = res.data.data.stats;
-                    }, function (res) {
+                    }, () => {
                         $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                     });
             });
-        }, 10000);
+        }, 30000);
         $scope.getContainers();
     });

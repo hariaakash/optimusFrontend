@@ -57,12 +57,26 @@
 			<tbody>
 				<tr ng-repeat="x in homeData.containers">
 					<td>{{ x.no+1 }}</td>
-					<td><a class="text-white" target="_blank" href="https://{{x.nameCustom?x.name:x.name+subDomain}}">{{x.nameCustom?x.name:x.name+subDomain}}</a></td>
+					<td>
+						<a class="text-white" target="_blank" href="https://{{x.nameCustom?x.name:x.name+subDomain}}">
+							{{x.nameCustom?x.name:x.name+subDomain}}
+						</a>
+					</td>
 					<td>{{ x.image }}</td>
-					<td class="{{x.stats.cpu==-1?'text-danger':'text-success'}}"><b><i class="fa fa-circle"></i>&emsp;{{ x.stats.cpu==-1?'STOPPED':'RUNNING' }}</b></td>
+					<td class="{{x.stats.cpu==-1?'text-danger':'text-success'}}">
+						<b>
+							<i class="fa fa-circle"></i>&emsp;{{ x.stats.cpu==-1?'STOPPED':'RUNNING' }}
+						</b>
+					</td>
 					<td>{{ x.stats.cpu }}%</td>
 					<td>{{ x.stats.ram }}%</td>
-					<td><a ui-sref="dashboard.manage({uId:x.id})"><button type="button" class="btn btn-circle btn-danger"><i class="fa fa-gear"></i></button></a></td>
+					<td>
+						<a ui-sref="dashboard.manage({containerId:x._id})">
+							<button type="button" class="btn btn-circle btn-danger">
+								<i class="fa fa-gear"></i>
+							</button>
+						</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>
