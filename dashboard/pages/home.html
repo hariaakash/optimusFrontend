@@ -31,38 +31,41 @@
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-			<div class="white-box">
-				<h3 class="box-title">Credits</h3>
-				<ul class="list-inline two-part">
-					<li><i class="fa fa-usd text-danger"></i></li>
-					<li class="text-right"><span ng-bind="homeData.stats.credits || 0"></span></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<h1 ng-show="homeData.block">Your account is blocked, contact support to know more information !!</h1>
-	<div class="row" ng-hide="homeData.block">
-		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 			<a href="javascript:void(0)" ng-click="openModal('deployApp')">
-				<div class="white-box text-center bg-info server">
+				<div class="white-box text-center bg-danger">
 					<h1 class="text-white" style="font-size: 32px;">Create App</h1>
 					<h1 class="text-white" style="padding-top:5px;"><i class="fa fa-server"></i></h1>
 				</div>
 			</a>
 		</div>
-		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" ng-repeat="x in homeData.containers" ng-show="homeData.containers">
-			<a ui-sref="dashboard.manage({ serverId: x._id })">
-				<div class="white-box text-center server bg-danger">
-					<div class="ribbon ribbon-right">
-						<h5 class="text-white">Status: <i class="fa fa-dot-circle-o fa-blink" ng-class="{'text-success': x.monitorLogs.isReachable == true, 'text-red': x.monitorLogs.isReachable == false}"></i>
-							{{x.monitorLogs.isReachable==true?'UP':'DOWN'}}</h5>
-					</div>
-					<h3 class="box-title text-left text-white" ng-bind="x.name"></h3>
-					<h1 class="text-white ip" ng-bind="x.ip"></h1>
-					<p class="text-right text-white" ng-bind="x.os"></p>
-				</div>
-			</a>
-		</div>
+	</div>
+	<h1 ng-show="homeData.conf.block">Your account is blocked, contact support to know more information !!</h1>
+	<div class="row" ng-hide="homeData.conf.block">
+		<h1 ng-hide="homeData.containers.length">No Applications yet.</h1>
+		<table class="table table-hover margin bottom" ng-show="homeData.containers.length">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Domain</th>
+					<th>Stack</th>
+					<th>Status</th>
+					<th>CPU</th>
+					<th>RAM</th>
+					<th>View</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in homeData.containers">
+					<td>{{ x.no+1 }}</td>
+					<td><a class="text-white" target="_blank" href="https://{{x.nameCustom?x.name:x.name+subDomain}}">{{x.nameCustom?x.name:x.name+subDomain}}</a></td>
+					<td>{{ x.image }}</td>
+					<td class="{{x.stats.cpu==-1?'text-danger':'text-success'}}"><b><i class="fa fa-circle"></i>&emsp;{{ x.stats.cpu==-1?'STOPPED':'RUNNING' }}</b></td>
+					<td>{{ x.stats.cpu }}%</td>
+					<td>{{ x.stats.ram }}%</td>
+					<td><a ui-sref="dashboard.manage({uId:x.id})"><button type="button" class="btn btn-circle btn-danger"><i class="fa fa-gear"></i></button></a></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
 <div id="deployApp" class="modal fade" role="dialog">

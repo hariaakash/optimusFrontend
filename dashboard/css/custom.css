@@ -79,47 +79,11 @@
     }
 }
 
-/* Extras */
-
-.server {
-    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
-}
-
-.server:hover {
-    box-shadow: 0 10px 16px 10px rgba(0, 0, 0, 0.4), 0 12px 20px 0 rgba(0, 0, 0, 0.38) !important;
-}
-
-.ip {
-    font-size: 26px;
-}
-
-.modal-icon {
-    font-size: 60px;
-    color: #fb9678;
-}
-
-.add-server {
-    padding-top: 5px;
-}
-
-.table-borderless>tbody>tr>td, .table-borderless>tbody>tr>th, .table-borderless>tfoot>tr>td, .table-borderless>tfoot>tr>th, .table-borderless>thead>tr>td, .table-borderless>thead>tr>th {
-    border: none;
-}
-
-.server-info {
-    font-size: 20px;
-}
-
-.stack {
-    width: 50px;
-    height: 50px;
-}
-
 /*Dropdown*/
 
 .dropdown:hover .dropdown-menu {
     display: block;
-    margin-top: 0; // remove the gap so it doesn't close
+    margin-top: 0;
 }
 
 @keyframes fa-blink {

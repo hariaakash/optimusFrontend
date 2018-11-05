@@ -474,6 +474,7 @@ angular.module('optimusApp')
         $rootScope.apiUrl = 'http://localhost:8080/webapi/';
         // $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
         $rootScope.copyrightYear = new Date().getFullYear();
+        $rootScope.subDomain = '.gameservers.ooo';
         $ocLazyLoad.load(['./plugins/sweetalert2/sweetalert2.min.js', './plugins/sweetalert2/sweetalert2.min.css', './plugins/toast/toast.min.js', './plugins/toast/toast.min.css']);
         $rootScope.checkAuth = function (force) {
             if (Cookies.get('authKey')) {

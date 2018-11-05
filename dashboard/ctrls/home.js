@@ -1,5 +1,5 @@
 angular.module('optimusApp')
-    .controller('homeCtrl', function ($rootScope, $scope, $http, $state) {
+    .controller('homeCtrl', function ($rootScope, $scope, $http, $state, $interval) {
         $rootScope.checkAuth();
         $rootScope.profile = true;
         $scope.deployApp = function () {
@@ -52,7 +52,44 @@ angular.module('optimusApp')
                     }
                 }, function (res) {
                     $('#btnLoad').button('reset');
-                    $rootScope.toast('Failed', "Some error occurred, try again.", "error");
+                    $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                 });
         };
+        $scope.getContainers = function () {
+            $http({
+                    method: 'GET',
+                    url: $rootScope.apiUrl + 'users/containers',
+                    params: {
+                        authKey: $rootScope.authKey
+                    }
+                })
+                .then(function (res) {
+                    if (res.data.status == true) {
+                        $rootScope.homeData.containers = res.data.data;
+                    } else {
+                        $rootScope.homeData.containers = [];
+                        $rootScope.toast('Error', res.data.msg, 'error');
+                    }
+                }, function (res) {
+                    $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
+                });
+        };
+        $interval(function () {
+            $rootScope.homeData.containers.forEach((container) => {
+                $http({
+                        method: 'GET',
+                        url: $rootScope.apiUrl + 'containers/',
+                        params: {
+                            authKey: $rootScope.authKey,
+                            containerId: container._id,
+                        }
+                    })
+                    .then(function (res) {
+                        if (res.data.status == true) container.stats = res.data.data.stats;
+                    }, function (res) {
+                        $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
+                    });
+            });
+        }, 10000);
+        $scope.getContainers();
     });
