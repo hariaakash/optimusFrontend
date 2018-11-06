@@ -4,7 +4,7 @@ angular.module('optimusApp')
         $scope.sendEmailVerification = function() {
             $http({
                     method: 'POST',
-                    url: $rootScope.apiUrl + 'user/forgotPassword',
+                    url: $rootScope.apiUrl + 'users/forgotPassword',
                     data: $scope.data
                 })
                 .then(function(res) {

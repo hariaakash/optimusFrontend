@@ -170,13 +170,13 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                     }]
                 }
             })
-            .state("changePassword", {
-                url: "/changePassword?email&key",
-                templateUrl: "pages/changePassword.html",
-                controller: "changePasswordCtrl",
+            .state("setPassword", {
+                url: "/setPassword?email&key",
+                templateUrl: "pages/setPassword.html",
+                controller: "setPasswordCtrl",
                 resolve: {
                     loadMyCtrl: ['$ocLazyLoad', ($ocLazyLoad) => {
-                        return $ocLazyLoad.load('./ctrls/changePassword.js');
+                        return $ocLazyLoad.load('./ctrls/setPassword.js');
                     }]
                 }
             });
