@@ -129,7 +129,7 @@ angular.module('optimusApp')
                 if (!$rootScope.signStatus || force) {
                     $http({
                             method: 'GET',
-                            url: $rootScope.apiUrl + 'admin',
+                            url: $rootScope.apiUrl + 'admins',
                             params: {
                                 adminKey: $rootScope.adminKey
                             }
@@ -137,7 +137,6 @@ angular.module('optimusApp')
                         .then((res) => {
                             if (res.data.status == true) {
                                 $rootScope.homeData = res.data.data;
-                                $rootScope.user = $rootScope.homeData.info;
                             } else {
                                 $rootScope.logout();
                                 $rootScope.toast('Error', res.data.msg, 'error');
@@ -163,7 +162,7 @@ angular.module('optimusApp')
             Cookies.remove('adminKey');
             $http({
                     method: 'GET',
-                    url: $rootScope.apiUrl + 'admin/logout',
+                    url: $rootScope.apiUrl + 'admins/logout',
                     params: {
                         adminKey: $rootScope.adminKey
                     }
@@ -172,15 +171,22 @@ angular.module('optimusApp')
                     delete $rootScope.adminKey;
                     delete $rootScope.homeData;
                     $rootScope.signStatus = false;
-                    $rootScope.toast('Success', 'Logged out !!', "info");
+                    $rootScope.toast('Success', 'Logged out !!', 'info');
                     $state.go('login');
                 }, () => {
                     $state.go('login');
-                    $rootScope.toast('Failed', "Some error occurred, try again.", "error");
+                    $rootScope.toast('Failed', 'Some error occurred, try again.', 'error');
                 });
         };
         $rootScope.openModal = (x) => {
-            $('#' + x).modal('show');
+            if ($rootScope.homeData.conf.block)
+                $rootScope.toast('Failed', 'Your account is blocked, contact support.', 'error');
+            else
+                $('#' + x).modal('show');
+        };
+        $rootScope.closeModal = (x) => {
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open');
         };
         $rootScope.toast = (heading, text, status, hideAfter = 10000) => {
             // info, warning, error, success

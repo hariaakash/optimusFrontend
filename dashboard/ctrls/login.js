@@ -12,14 +12,14 @@ angular.module('optimusApp')
                     var authKey = res.data.authKey;
                     Cookies.set('authKey', authKey);
                     $rootScope.checkAuth(true);
-                    $rootScope.toast('Success', res.data.msg, "success");
+                    $rootScope.toast('Success', res.data.msg, 'success');
                 } else {
                     $('#btnLoad').button('reset');
-                    $rootScope.toast('Failed', res.data.msg, "error");
+                    $rootScope.toast('Failed', res.data.msg, 'error');
                 }
             }, function(res) {
                 $('#btnLoad').button('reset');
-                $rootScope.toast('Failed', "Some error occurred, try again.", "error");
+                $rootScope.toast('Failed', 'Some error occurred, try again.', 'error');
             });
         };
     });

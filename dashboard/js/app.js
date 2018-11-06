@@ -234,30 +234,6 @@ angular.module('optimusApp')
                 stack: 1
             });
         };
-        $rootScope.createTeam = (x) => {
-            $('#btnLoad').button('loading');
-            $http({
-                    method: 'POST',
-                    url: $rootScope.apiUrl + 'team/create',
-                    data: {
-                        authKey: $rootScope.authKey,
-                        tName: x
-                    }
-                })
-                .then((res) => {
-                    if (res.data.status == true) {
-                        $rootScope.closeModal();
-                        $state.reload();
-                        $rootScope.checkAuth(true);
-                        $rootScope.toast('Success', res.data.msg, "success");
-                    } else {
-                        $('#btnLoad').button('reset');
-                        $rootScope.toast('Failed', res.data.msg, "error");
-                    }
-                }, () => {
-                    $rootScope.toast('Failed', "Some error occurred, try again.", "error");
-                });
-        };
         $rootScope.comingSoon = () => {
             $rootScope.toast('Alert', "This feature will be available soon.", "success");
         };

@@ -7,7 +7,7 @@ angular.module('optimusApp')
                 $('#btnLoad').button('loading');
                 $http({
                         method: 'POST',
-                        url: $rootScope.apiUrl + 'admin/changePasswordAccount',
+                        url: $rootScope.apiUrl + 'admins/changePasswordAccount',
                         data: {
                             adminKey: $rootScope.adminKey,
                             oldPassword: $scope.oldPassword,

@@ -6,7 +6,7 @@ angular.module('optimusApp')
         $scope.getActivityInfo = function() {
             $http({
                     method: 'GET',
-                    url: $rootScope.apiUrl + 'admin/activity',
+                    url: $rootScope.apiUrl + 'admins/activity',
                     params: {
                         adminKey: $rootScope.adminKey
                     }

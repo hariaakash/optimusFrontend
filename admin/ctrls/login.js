@@ -1,25 +1,25 @@
 angular.module('optimusApp')
-    .controller('loginCtrl', function($scope, $rootScope, $http, $state) {
+    .controller('loginCtrl', function ($scope, $rootScope, $http) {
         $rootScope.checkAuth();
-        $scope.loginUser = function() {
+        $scope.loginUser = () => {
             $('#btnLoad').button('loading');
             $http({
                 method: 'POST',
-                url: $rootScope.apiUrl + 'admin/login',
+                url: $rootScope.apiUrl + 'admins/login',
                 data: $scope.user
-            }).then(function(res) {
+            }).then((res) => {
                 if (res.data.status == true) {
                     $rootScope.adminKey = res.data.adminKey;
                     Cookies.set('adminKey', $rootScope.adminKey);
                     $rootScope.checkAuth(true);
-                    $rootScope.toast('Success', res.data.msg, "success");
+                    $rootScope.toast('Success', res.data.msg, 'success');
                 } else {
                     $('#btnLoad').button('reset');
-                    $rootScope.toast('Error', res.data.msg, "error");
+                    $rootScope.toast('Error', res.data.msg, 'error');
                 }
-            }, function(res) {
+            }, () => {
                 $('#btnLoad').button('reset');
-                $rootScope.toast('Failed', "Some error occurred, try again.", "error");
+                $rootScope.toast('Failed', 'Some error occurred, try again.', 'error');
             });
         };
     });
