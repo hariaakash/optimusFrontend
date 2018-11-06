@@ -188,6 +188,7 @@ angular.module('optimusApp')
     .controller('globalCtrl', ($rootScope, $location, $http, $state, $ocLazyLoad) => {
         $rootScope.apiUrl = 'http://localhost:8080/webapi/';
         // $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
+        $ocLazyLoad.load(['./plugins/toast/toast.min.js', './plugins/toast/toast.min.css']);
         $rootScope.copyrightYear = new Date().getFullYear();
         $rootScope.subDomain = '.gameservers.ooo';
         $rootScope.checkAuth = (force) => {

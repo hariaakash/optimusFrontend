@@ -1,5 +1,5 @@
 angular.module('optimusApp')
-    .controller('manageCtrl', function ($rootScope, $scope, $http, $stateParams, $state, $window, $interval) {
+    .controller('manageCtrl', function ($rootScope, $scope, $http, $stateParams, $state, $interval) {
         $rootScope.checkAuth();
         $rootScope.profile = true;
         $scope.containerId = $stateParams.containerId;
@@ -15,7 +15,8 @@ angular.module('optimusApp')
                     })
                     .then((res) => {
                         if (res.data.status == true) {
-                            $rootScope.appData = res.data.data;
+                            $scope.appData = res.data.data;
+                            $scope.getStats();
                         } else {
                             $rootScope.toast('Failed', res.data.msg, 'error');
                             $state.go('dashboard.home');
@@ -27,6 +28,20 @@ angular.module('optimusApp')
                 $state.go('dashboard.home');
             }
         };
+        $scope.getStats = () => {
+            $http({
+                    method: 'GET',
+                    url: $rootScope.apiUrl + 'containers/stats',
+                    params: {
+                        authKey: $rootScope.authKey,
+                        containerId: $scope.containerId,
+                    }
+                })
+                .then((res) => {
+                    if (res.data.status == true) $scope.appData.stats = res.data.data.stats;
+                    else delete $scope.appData.stats;
+                });
+        };
         $scope.exec = (process) => {
             $http({
                     method: 'POST',
@@ -37,28 +52,16 @@ angular.module('optimusApp')
                     }
                 })
                 .then((res) => {
-                    if (res.data.status == true) $rootScope.appData.stats = res.data.data.stats;
-                    else delete $rootScope.appData.stats;
+                    if (res.data.status == true) {
+                        $state.reload();
+                        $rootScope.toast('Success', res.data.msg, 'success')
+                    } else $rootScope.toast('Failed', `Unable to perform: ${process}`, 'error');
                 }, () => {
                     $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                 });
         };
-        if ($scope.containerId)
-            $interval(() => {
-                $http({
-                        method: 'GET',
-                        url: $rootScope.apiUrl + 'containers/stats',
-                        params: {
-                            authKey: $rootScope.authKey,
-                            containerId: $scope.containerId,
-                        }
-                    })
-                    .then((res) => {
-                        if (res.data.status == true) $rootScope.appData.stats = res.data.data.stats;
-                        else delete $rootScope.appData.stats;
-                    }, () => {
-                        $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
-                    });
-            }, 10000);
+        $interval(() => {
+            $scope.getStats();
+        }, 30000);
         $scope.getAppInfo();
     });

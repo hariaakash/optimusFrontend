@@ -1,5 +1,5 @@
 angular.module('optimusApp')
-    .controller('homeCtrl', ($rootScope, $scope, $http, $state, $interval) => {
+    .controller('homeCtrl', function ($rootScope, $scope, $http, $state, $interval) {
         $rootScope.checkAuth();
         $rootScope.profile = true;
         $scope.deployApp = () => {
