@@ -63,9 +63,10 @@
 					</td>
 					<td>{{ x.image }}</td>
 					<td class="{{x.stats.cpu==-1?'text-danger':'text-success'}}">
-						<b>
+						<b ng-show="x.stats">
 							<i class="fa fa-circle"></i>&emsp;{{ x.stats.cpu==-1?'STOPPED':'RUNNING' }}
 						</b>
+						<b ng-hide="x.stats">Querying..</b>
 					</td>
 					<td>{{ x.stats.cpu }}%</td>
 					<td>{{ x.stats.ram }}%</td>
@@ -105,7 +106,7 @@
 					<div class="form-group" ng-if="!deployAppForm.nameCustom">
 						<label>Free sub domain: *</label>
 						<div class="input-group">
-							<input type="text" class="form-control" ng-model="deployAppForm.name" placeholder="xyz123" required>
+							<input type="text" class="form-control" ng-model="deployAppForm.name" placeholder="xyzabc" required>
 							<span class="input-group-addon">.gameservers.ooo</span>
 						</div>
 						<span class="help-block">Enter desired name (alphabetic and should be of length 6 atleast).</span>

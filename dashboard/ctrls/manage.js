@@ -22,7 +22,7 @@ angular.module('optimusApp')
                             $state.go('dashboard.home');
                         }
                     }, () => {
-                        $rootScope.toast('Failed', 'Some error occurred, try again.', 'error');
+                        $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                     });
             } else {
                 $state.go('dashboard.home');
@@ -40,6 +40,9 @@ angular.module('optimusApp')
                 .then((res) => {
                     if (res.data.status == true) $scope.appData.stats = res.data.data.stats;
                     else delete $scope.appData.stats;
+                }, () => {
+                    delete $scope.appData.stats;
+                    $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                 });
         };
         $scope.exec = (process) => {

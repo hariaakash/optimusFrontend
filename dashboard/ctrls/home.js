@@ -87,7 +87,9 @@ angular.module('optimusApp')
                     })
                     .then((res) => {
                         if (res.data.status == true) container.stats = res.data.data.stats;
+                        else delete container.stats;
                     }, () => {
+                        delete container.stats;
                         $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                     });
             });

@@ -21,7 +21,7 @@ angular.module('optimusApp')
 							$rootScope.toast('Failed', res.data.msg, 'error');
 						}
 					}, function () {
-						$rootScope.toast('Failed', 'Some error occurred, try again.', 'error');
+						$rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
 					});
 			} else {
 				$state.go('login');

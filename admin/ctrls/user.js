@@ -1,24 +1,26 @@
 angular.module('optimusApp')
-	.controller('userCtrl', function ($rootScope, $scope, $http, $stateParams, $state) {
+	.controller('userCtrl', function ($rootScope, $scope, $http, $stateParams, $state, $interval) {
 		$rootScope.checkAuth();
-		$rootScope.uId = $stateParams.uId;
-		$scope.getUserInfo = function () {
-			if ($rootScope.uId) {
+		$rootScope.userId = $stateParams.userId;
+		$scope.getUserInfo = () => {
+			if ($rootScope.userId) {
 				$http({
-						method: 'POST',
-						url: $rootScope.apiUrl + 'admin/user/' + $rootScope.uId,
-						data: {
+						method: 'GET',
+						url: $rootScope.apiUrl + 'admins/user/' + $rootScope.userId,
+						params: {
 							adminKey: $rootScope.adminKey
 						}
 					})
-					.then(function (res) {
+					.then((res) => {
 						if (res.data.status == true) {
-							$rootScope.userData = res.data.data;
+							$scope.userData = res.data.data;
+							console.log($scope.userData.containers);
+							$scope.getContainerStats();
 						} else {
 							$rootScope.toast('Error', res.data.msg, "error");
 							$state.go('dashboard.home');
 						}
-					}, function (res) {
+					}, () => {
 						$('#btnLoad').button('reset');
 						$rootScope.toast('Failed', "Some error occurred, try again.", "error");
 					});
@@ -26,71 +28,70 @@ angular.module('optimusApp')
 				$state.go('dashboard.home');
 			}
 		};
-		$scope.getUserInfo();
-        $scope.blockUser = function() {
-            $http({
-                    method: 'POST',
-                    url: $rootScope.apiUrl + 'admin/blockUser',
-                    data: {
-                        adminKey: $rootScope.adminKey,
-                        uId: $rootScope.uId
-                    }
-                })
-                .then(function(res) {
-                    if (res.data.status == true) {
-                        $state.reload();
-                        $rootScope.checkAuth();
-                        $rootScope.toast('Success', res.data.msg, "success");
-                    } else {
-                        $('#btnLoad').button('reset');
-                        $rootScope.toast('Failed', res.data.msg, "error");
-                    }
-                }, function(res) {
-                    $rootScope.toast('Failed', "Some error occurred, try again.", "error");
-                });
-        };
-        $scope.unBlockUser = function() {
-            $http({
-                    method: 'POST',
-                    url: $rootScope.apiUrl + 'admin/unBlockUser',
-                    data: {
-                        adminKey: $rootScope.adminKey,
-                        uId: $rootScope.uId
-                    }
-                })
-                .then(function(res) {
-                    if (res.data.status == true) {
-                        $state.reload();
-                        $rootScope.checkAuth();
-                        $rootScope.toast('Success', res.data.msg, "success");
-                    } else {
-                        $('#btnLoad').button('reset');
-                        $rootScope.toast('Failed', res.data.msg, "error");
-                    }
-                }, function(res) {
-                    $rootScope.toast('Failed', "Some error occurred, try again.", "error");
-                });
-        };
-		$scope.createTicket = function () {
-			$('#btnLoad').button('loading');
-			$scope.newTicket.adminKey = $rootScope.adminKey;
-			$scope.newTicket.uId = $rootScope.uId;
+		$scope.blockUser = () => {
 			$http({
 					method: 'POST',
-					url: $rootScope.apiUrl + 'admin/tickets/create',
-					data: $scope.newTicket
+					url: $rootScope.apiUrl + 'admins/blockUser',
+					data: {
+						adminKey: $rootScope.adminKey,
+						userId: $rootScope.userId
+					}
 				})
-				.then(function (res) {
+				.then((res) => {
 					if (res.data.status == true) {
-                        $state.reload();
-                        $rootScope.checkAuth();
-                        $rootScope.toast('Success', res.data.msg, "success");
+						$state.reload();
+						$rootScope.toast('Success', res.data.msg, "success");
 					} else {
 						$('#btnLoad').button('reset');
-							$rootScope.toast('Error', res.data.msg, "error");
+						$rootScope.toast('Failed', res.data.msg, "error");
 					}
-				}, function (res) {
+				}, () => {
 					$rootScope.toast('Failed', "Some error occurred, try again.", "error");
 				});
 		};
+		$scope.unBlockUser = function () {
+			$http({
+					method: 'POST',
+					url: $rootScope.apiUrl + 'admins/unblockUser',
+					data: {
+						adminKey: $rootScope.adminKey,
+						userId: $rootScope.userId
+					}
+				})
+				.then((res) => {
+					if (res.data.status == true) {
+						$state.reload();
+						$rootScope.toast('Success', res.data.msg, "success");
+					} else {
+						$('#btnLoad').button('reset');
+						$rootScope.toast('Failed', res.data.msg, "error");
+					}
+				}, () => {
+					$rootScope.toast('Failed', "Some error occurred, try again.", "error");
+				});
+		};
+		$scope.getContainerStats = () => {
+			$scope.userData.containers.forEach((container) => {
+				$http({
+						method: 'POST',
+						url: $rootScope.apiUrl + 'admins/userContainerStats',
+						data: {
+							adminKey: $rootScope.adminKey,
+							userId: $rootScope.userId,
+							containerId: container._id,
+						}
+					})
+					.then((res) => {
+						if (res.data.status == true) container.stats = res.data.data.stats;
+						else delete container.stats;
+					}, () => {
+						delete container.stats;
+						$rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
+					});
+			});
+		};
+		$interval(() => {
+			$scope.getContainerStats();
+		}, 30000);
+		$scope.getUserInfo();
 	});

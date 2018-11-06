@@ -32,7 +32,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 }
             })
             .state("dashboard.user", {
-                url: "/user/:uId",
+                url: "/user/:userId",
                 templateUrl: "pages/user.html",
                 controller: "userCtrl",
                 resolve: {
@@ -45,7 +45,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 }
             })
             .state("dashboard.userActivity", {
-                url: "/userActivity/:uId",
+                url: "/userActivity/:userId",
                 templateUrl: "pages/userActivity.html",
                 controller: "userActivityCtrl",
                 resolve: {
@@ -123,6 +123,8 @@ angular.module('optimusApp')
         $rootScope.apiUrl = 'http://localhost:8080/webapi/';
         // $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
         $ocLazyLoad.load(['./plugins/toast/toast.min.js', './plugins/toast/toast.min.css']);
+        $rootScope.copyrightYear = new Date().getFullYear();
+        $rootScope.subDomain = '.gameservers.ooo';
         $rootScope.checkAuth = (force) => {
             if (Cookies.get('adminKey')) {
                 $rootScope.adminKey = Cookies.get('adminKey');
@@ -143,7 +145,7 @@ angular.module('optimusApp')
                             }
                         }, () => {
                             $('#btnLoad').button('reset');
-                            $rootScope.toast('Failed', 'Some error occurred, try again.', 'error');
+                            $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                         });
                 }
                 var path = $location.path();
@@ -175,7 +177,7 @@ angular.module('optimusApp')
                     $state.go('login');
                 }, () => {
                     $state.go('login');
-                    $rootScope.toast('Failed', 'Some error occurred, try again.', 'error');
+                    $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                 });
         };
         $rootScope.openModal = (x) => {

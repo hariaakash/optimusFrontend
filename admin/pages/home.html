@@ -3,8 +3,10 @@
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
 			<h4 class="page-title">Home Page</h4>
 		</div>
-		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"> <button class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Role:
-				{{homeData.role}}</button>
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<button class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">
+				Role:{{homeData.role}}
+			</button>
 			<ol class="breadcrumb">
 				<li class="active">Home</li>
 			</ol>
@@ -87,7 +89,7 @@
 					</td>
 					<td>{{ x.containers }}</td>
 					<td>
-						<a ui-sref="dashboard.user({uId:x._id})">
+						<a ui-sref="dashboard.user({userId:x._id})">
 							<button type="button" class="btn btn-circle btn-info">
 								<i class="fa fa-eye"></i>
 							</button>
