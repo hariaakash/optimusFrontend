@@ -66,6 +66,7 @@ angular.module('optimusApp')
                 .then((res) => {
                     if (res.data.status == true) {
                         $rootScope.homeData.containers = res.data.data;
+                        $scope.getContainerStats();
                     } else {
                         $rootScope.homeData.containers = [];
                         $rootScope.toast('Error', res.data.msg, 'error');
@@ -74,7 +75,7 @@ angular.module('optimusApp')
                     $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                 });
         };
-        $interval(() => {
+        $scope.getContainerStats = () => {
             $rootScope.homeData.containers.forEach((container) => {
                 $http({
                         method: 'GET',
@@ -90,6 +91,9 @@ angular.module('optimusApp')
                         $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                     });
             });
+        };
+        $interval(() => {
+            $scope.getContainerStats();
         }, 30000);
         $scope.getContainers();
     });
