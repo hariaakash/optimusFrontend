@@ -75,32 +75,6 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                     }]
                 }
             })
-            .state("dashboard.support", {
-                url: "/support",
-                templateUrl: "pages/support.html",
-                controller: "supportCtrl",
-                resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', ($ocLazyLoad) => {
-                        return $ocLazyLoad.load({
-                            name: 'Support',
-                            files: ['./ctrls/support.js']
-                        })
-                    }]
-                }
-            })
-            .state("dashboard.ticket", {
-                url: "/ticket/:tId/",
-                templateUrl: "pages/ticket.html",
-                controller: "ticketCtrl",
-                resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', ($ocLazyLoad) => {
-                        return $ocLazyLoad.load({
-                            name: 'Ticket',
-                            files: ['./ctrls/ticket.js']
-                        })
-                    }]
-                }
-            })
             .state("dashboard.api", {
                 url: "/api",
                 templateUrl: "pages/api.html",
@@ -234,7 +208,10 @@ angular.module('optimusApp')
             $state.go('login');
         };
         $rootScope.openModal = (x) => {
-            $('#' + x).modal('show');
+            if ($rootScope.homeData.conf.block)
+                $rootScope.toast('Failed', 'Your account is blocked, contact support.', 'error');
+            else
+                $('#' + x).modal('show');
         };
         $rootScope.closeModal = (x) => {
             $('.modal-backdrop').remove();

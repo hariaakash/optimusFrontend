@@ -53,7 +53,8 @@ angular.module('optimusApp')
                 })
                 .then((res) => {
                     if (res.data.status == true) {
-                        $state.reload();
+                        if (process == 'delete') $state.go('login');
+                        else $state.reload();
                         $rootScope.toast('Success', res.data.msg, 'success')
                     } else $rootScope.toast('Failed', `Unable to perform: ${process}`, 'error');
                 }, () => {
