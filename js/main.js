@@ -8,7 +8,7 @@
             nul = $('nav ul li'),
             ha = $("header .arrow"),
             sl = $('.skill-line');
-        new WOW().init();
+        // new WOW().init();
         // --------------------------
         // Check navigation for children
         // --------------------------
@@ -88,19 +88,19 @@
         // --------------------------
         // Smart Sticky Header
         // --------------------------
-        var nav = new Headroom(document.querySelector("nav"), {
-            tolerance: {
-                up: 15,
-                down: 50
-            },
-            offset: 450,
-            classes: {
-                initial: "initial",
-                pinned: "fixed",
-                unpinned: "unfixed"
-            }
-        });
-        nav.init();
+        // var nav = new Headroom(document.querySelector("nav"), {
+        //     tolerance: {
+        //         up: 15,
+        //         down: 50
+        //     },
+        //     offset: 450,
+        //     classes: {
+        //         initial: "initial",
+        //         pinned: "fixed",
+        //         unpinned: "unfixed"
+        //     }
+        // });
+        // nav.init();
 
         // --------------------------
         // Arrow Down Click
