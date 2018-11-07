@@ -6,7 +6,7 @@
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a ui-sref="dashboard.home" class="active">Home</a></li>
-				<li><a ui-sref="dashboard.user({uId:uId})" class="active">User</a></li>
+				<li><a ui-sref="dashboard.user({userId:userId})" class="active">User</a></li>
 				<li class="active">User Activity</li>
 			</ol>
 		</div>
@@ -52,31 +52,23 @@
 							<tbody>
 								<tr>
 									<td>UID: </td>
-									<td ng-bind="userActivityData.id"></td>
+									<td ng-bind="userActivityData._id"></td>
 								</tr>
 								<tr>
 									<td>Email: </td>
 									<td ng-bind="userActivityData.email"></td>
 								</tr>
 								<tr>
+									<td>Containers: </td>
+									<td>{{userActivityData.containers + ' / ' + userActivityData.conf.limit}}</td>
+								</tr>
+								<tr>
+									<td>Verified: </td>
+									<td ng-bind="userActivityData.conf.verified"></td>
+								</tr>
+								<tr>
 									<td>Plan: </td>
-									<td ng-bind="userActivityData.plan"></td>
-								</tr>
-								<tr ng-show="userActivityData.info.name">
-									<td>Name: </td>
-									<td ng-bind="userActivityData.info.name"></td>
-								</tr>
-								<tr>
-									<td>Servers: </td>
-									<td ng-bind="userActivityData.stats.added"></td>
-								</tr>
-								<tr>
-									<td>APIs: </td>
-									<td ng-bind="userActivityData.apis"></td>
-								</tr>
-								<tr ng-show="userActivityData.info.country">
-									<td>Country: </td>
-									<td ng-bind="userActivityData.info.country"></td>
+									<td>{{userActivityData.conf.plan?userActivityData.conf.plan:'None'}}</td>
 								</tr>
 							</tbody>
 						</table>

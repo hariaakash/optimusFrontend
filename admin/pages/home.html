@@ -87,7 +87,7 @@
 							<i class="fa fa-user-plus"></i>
 						</button>
 					</td>
-					<td>{{ x.containers }}</td>
+					<td>{{ x.containers + ' / ' + x.conf.limit }}</td>
 					<td>
 						<a ui-sref="dashboard.user({userId:x._id})">
 							<button type="button" class="btn btn-circle btn-info">

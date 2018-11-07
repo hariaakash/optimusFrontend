@@ -55,6 +55,13 @@ angular.module('optimusApp')
                     $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                 });
         };
+        $scope.openDeployAppModal = () => {
+            if ($rootScope.homeData.containers.length < $rootScope.homeData.conf.limit) {
+                $rootScope.openModal('deployApp');
+            } else {
+                $rootScope.toast('Failed', 'Limit reached, contact support for increase.', 'error');
+            }
+        };
         $scope.getContainers = () => {
             $http({
                     method: 'GET',

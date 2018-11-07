@@ -16,7 +16,9 @@
 				<h3 class="box-title">Apps</h3>
 				<ul class="list-inline two-part">
 					<li><i class="fa fa-server text-danger"></i></li>
-					<li class="text-right"><span ng-bind="homeData.containers.length"></span></li>
+					<li class="text-right">
+						<span>{{ homeData.containers.length + ' / ' + homeData.conf.limit }}</span>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -30,7 +32,7 @@
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-			<a href="javascript:void(0)" ng-click="openModal('deployApp')">
+			<a href="javascript:void(0)" ng-click="openDeployAppModal()">
 				<div class="white-box text-center bg-danger">
 					<h1 class="text-white" style="font-size: 32px;">Create App</h1>
 					<h1 class="text-white" style="padding-top:5px;"><i class="fa fa-server"></i></h1>
@@ -38,7 +40,7 @@
 			</a>
 		</div>
 	</div>
-	<h1 ng-show="homeData.conf.block">Your account is blocked, contact support to know more information !!</h1>
+	<h3 class="text-center" ng-show="homeData.conf.block">Your account is blocked, contact support to know more info.</h3>
 	<div class="row" ng-hide="homeData.conf.block">
 		<h3 class="text-center" ng-hide="homeData.containers.length">Oh snap you don't have any apps created.</h3>
 		<table class="table table-hover margin bottom" ng-show="homeData.containers.length">

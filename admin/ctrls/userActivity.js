@@ -1,14 +1,14 @@
 angular.module('optimusApp')
 	.controller('userActivityCtrl', function ($rootScope, $scope, $http, $stateParams, $state) {
 		$rootScope.checkAuth();
-        $scope.currentPage = 1;
-        $scope.pageSize = 10;
-		$rootScope.uId = $stateParams.uId;
+		$scope.currentPage = 1;
+		$scope.pageSize = 10;
+		$rootScope.userId = $stateParams.userId;
 		$scope.getUserActivityInfo = function () {
-			if ($rootScope.uId) {
+			if ($rootScope.userId) {
 				$http({
 						method: 'GET',
-						url: $rootScope.apiUrl + 'admin/userActivity/' + $rootScope.uId,
+						url: $rootScope.apiUrl + 'admins/userActivity/' + $rootScope.userId,
 						params: {
 							adminKey: $rootScope.adminKey
 						}

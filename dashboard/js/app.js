@@ -179,6 +179,7 @@ angular.module('optimusApp')
                         .then((res) => {
                             if (res.data.status == true) {
                                 $rootScope.homeData = res.data.data;
+                                if ($rootScope.homeData.conf.block) $state.go('dashboard.home');
                             } else {
                                 $rootScope.logout();
                                 $rootScope.toast('Error', res.data.msg, 'error');
