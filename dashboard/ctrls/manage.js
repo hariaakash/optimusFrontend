@@ -70,6 +70,6 @@ angular.module('optimusApp')
         };
         $interval(() => {
             $scope.getStats();
-        }, 30000);
+        }, 60000);
         $scope.getAppInfo();
     });

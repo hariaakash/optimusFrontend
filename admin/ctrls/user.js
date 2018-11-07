@@ -117,6 +117,6 @@ angular.module('optimusApp')
 		};
 		$interval(() => {
 			$scope.getContainerStats();
-		}, 30000);
+		}, 60000);
 		$scope.getUserInfo();
 	});
