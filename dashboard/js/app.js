@@ -165,6 +165,9 @@ angular.module('optimusApp')
         $ocLazyLoad.load(['./plugins/toast/toast.min.js', './plugins/toast/toast.min.css']);
         $rootScope.copyrightYear = new Date().getFullYear();
         $rootScope.subDomain = '.gameservers.ooo';
+        $rootScope.hostIp = '78.46.21.224';
+        $rootScope.cloudflareDns1 = '.cdn.cloudflare.net';
+        $rootScope.cloudflareDns2 = 'cloudflare-resolve-to.';
         $rootScope.checkAuth = (force) => {
             if (Cookies.get('authKey')) {
                 $rootScope.authKey = Cookies.get('authKey');
@@ -221,7 +224,7 @@ angular.module('optimusApp')
         $rootScope.toast = (heading, text, status, hideAfter = 10000) => {
             // info, warning, error, success
             if (hideAfter == 0) hideAfter = false;
-            if (text == 'Account not found !!') {
+            if (text == 'Session expired, login to continue.') {
                 text = 'Session ended!!';
                 $rootScope.logout(false);
             }
