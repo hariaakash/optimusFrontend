@@ -102,8 +102,8 @@
 								<tr>
 									<td>Domain: </td>
 									<td>
-										<a class="text-white" target="_blank" href="https://{{appData.nameCustom?appData.name:appData.name+subDomain}}">
-											{{appData.nameCustom?appData.name:appData.name+subDomain}}
+										<a class="text-white" target="_blank" href="https://{{appData.name+subDomain}}">
+											{{appData.name+subDomain}}
 										</a>
 									</td>
 								</tr>
@@ -150,7 +150,7 @@
 			<div class="modal-body text-white">
 				<form class="form-horizontal" name="delAppForm">
 					<div class="form-group">
-						<label>Enter CONFIRM to delete the application: *</label>
+						<label>Enter <code>CONFIRM</code> to delete the application: *</label>
 						<input type="text" class="form-control" ng-model="delAppForm.action" required>
 						<span class="help-block">Input should be in capital.</span>
 					</div>

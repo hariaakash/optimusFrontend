@@ -59,8 +59,8 @@
 				<tr ng-repeat="x in homeData.containers">
 					<td>{{ x.no+1 }}</td>
 					<td>
-						<a class="text-white" target="_blank" href="https://{{x.nameCustom?x.name:x.name+subDomain}}">
-							{{x.nameCustom?x.name:x.name+subDomain}}
+						<a class="text-white" target="_blank" href="https://{{x.name+subDomain}}">
+							{{x.name+subDomain}}
 						</a>
 					</td>
 					<td>{{ x.image }}</td>
@@ -85,7 +85,7 @@
 	</div>
 </div>
 <div id="deployApp" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header text-center">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -93,19 +93,7 @@
 			</div>
 			<div class="modal-body text-white">
 				<form class="form-horizontal" name="deployAppForm">
-					<div class="form-group" ng-init="deployAppForm.nameCustom=false">
-						<label>Domain Type: *</label>
-						<select class="form-control" ng-model="deployAppForm.nameCustom" required>
-							<option ng-value=false>Free subdomain</option>
-							<option ng-value=true>Custom domain</option>
-						</select>
-					</div>
-					<div class="form-group" ng-if="deployAppForm.nameCustom">
-						<label>Domain: *</label>
-						<input type="text" class="form-control" ng-model="deployAppForm.name" placeholder="myowndomain.com" required>
-						<span class="help-block">Enter your domain name</span>
-					</div>
-					<div class="form-group" ng-if="!deployAppForm.nameCustom">
+					<div class="form-group">
 						<label>Free sub domain: *</label>
 						<div class="input-group">
 							<input type="text" class="form-control" ng-model="deployAppForm.name" placeholder="xyzabc" required>
@@ -123,49 +111,7 @@
 						</select>
 						<span class="help-block">Choose the type of application environment to be deployed.</span>
 					</div>
-					<div class="form-group">
-						<label>Git Repo URL: *</label>
-						<input type="text" class="form-control" ng-model="deployAppForm.git" placeholder="git@github.com:username/repo.git"
-						 required>
-						<span class="help-block">
-							Enter git repo ssh url. 
-							<a target="_blank" href="https://help.github.com/articles/which-remote-url-should-i-use/#cloning-with-ssh-urls">More Info >></a>
-						</span>
-					</div>
-					<div class="form-group">
-						<label>Git Deploy Key: *</label>
-						<textarea class="form-control" ng-model="deployAppForm.deployKeys" rows="3" required>
-						</textarea>
-						<span class="help-block">
-							Enter your git deploy key.
-							<a target="_blank" href="https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/">More Info >></a>
-						</span>
-					</div>
 				</form>
-				<div ng-show="deployAppForm.nameCustom && deployAppForm.name.length >= 3">
-					<label>Create these DNS records:</label>
-					<table class="table table-hover margin bottom">
-						<thead>
-							<tr>
-								<th>Record Type</th>
-								<th>Name</th>
-								<th>Value</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><code>CNAME</code></td>
-								<td><code>{{ deployAppForm.name }}</code></td>
-								<td><code>{{ deployAppForm.name + cloudflareDns1 }}</code></td>
-							</tr>
-							<tr>
-								<td><code>A</code></td>
-								<td><code>{{ cloudflareDns2 + deployAppForm.name }}</code></td>
-								<td><code>{{ hostIp }}</code></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>

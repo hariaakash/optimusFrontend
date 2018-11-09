@@ -130,7 +130,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
 // Global Controller
 angular.module('optimusApp')
     .controller('globalCtrl', ($rootScope, $location, $http, $state, $ocLazyLoad) => {
-        // $rootScope.apiUrl = 'http://localhost:8080/webapi/';
+        // $rootScope.apiUrl = 'http://localhost:8080/';
         $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
         $ocLazyLoad.load(['./plugins/toast/toast.min.js', './plugins/toast/toast.min.css']);
         $rootScope.copyrightYear = new Date().getFullYear();

@@ -33,8 +33,8 @@
 									<tr ng-repeat="x in userData.containers">
 										<td>{{ x.no+1 }}</td>
 										<td>
-											<a class="text-white" target="_blank" href="https://{{x.nameCustom?x.name:x.name+subDomain}}">
-												{{x.nameCustom?x.name:x.name+subDomain}}
+											<a class="text-white" target="_blank" href="https://{{x.name+subDomain}}">
+												{{x.name+subDomain}}
 											</a>
 										</td>
 										<td>{{ x.image }}</td>

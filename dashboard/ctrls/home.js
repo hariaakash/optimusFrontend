@@ -5,32 +5,17 @@ angular.module('optimusApp')
         $scope.deployApp = () => {
             $scope.data = {
                 authKey: $rootScope.authKey,
-                nameCustom: $scope.deployAppForm.nameCustom,
                 name: $scope.deployAppForm.name,
                 stack: $scope.deployAppForm.stack,
-                git: $scope.deployAppForm.git,
-                deployKeys: $scope.deployAppForm.deployKeys,
             };
-            if ($scope.data.git.indexOf('git@') !== -1) {
-                if ($scope.data.nameCustom) {
-                    if (/[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/.test($scope.data.name)) {
-                        $scope.sendRequest();
-                    } else {
-                        $rootScope.toast('Failed', 'Domain not valid', 'error');
-                    }
+            if ($scope.data.name.length >= 6) {
+                if (/^[a-z-]+$/.test($scope.data.name)) {
+                    $scope.sendRequest();
                 } else {
-                    if ($scope.data.name.length >= 6) {
-                        if (/^[a-z-]+$/.test($scope.data.name)) {
-                            $scope.sendRequest();
-                        } else {
-                            $rootScope.toast('Failed', 'Domain should be lowercase and alphabetic.', 'error');
-                        }
-                    } else {
-                        $rootScope.toast('Failed', 'Custom domain should atleast be of 6 characters.', 'error');
-                    }
+                    $rootScope.toast('Failed', 'Domain should be lowercase and alphabetic.', 'error');
                 }
             } else {
-                $rootScope.toast('Failed', 'Invalid git url.', 'error');
+                $rootScope.toast('Failed', 'Domain name should atleast be of 6 characters.', 'error');
             }
         };
         $scope.sendRequest = () => {
