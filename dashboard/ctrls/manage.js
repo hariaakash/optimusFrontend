@@ -57,12 +57,18 @@ angular.module('optimusApp')
                 .then((res) => {
                     if (res.data.status == true) {
                         if (process == 'delete') {
+                            delete $scope.delAppForm.action;
                             $rootScope.closeModal();
-                            $state.go('login');
+                            $state.go('dashboard.home');
+                            $rootScope.toast('Success', res.data.msg, 'success');
+                        } else if (process == 'sftp') {
+                            $scope.appData.sftp = res.data.data;
+                            $rootScope.openModal('sftp');
                         } else {
+                            $rootScope.closeModal();
                             $state.reload();
+                            $rootScope.toast('Success', res.data.msg, 'success');
                         }
-                        $rootScope.toast('Success', res.data.msg, 'success')
                     } else $rootScope.toast('Failed', `Unable to perform: ${process}`, 'error');
                 }, () => {
                     $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');

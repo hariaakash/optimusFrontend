@@ -42,10 +42,10 @@
 							</a>
 						</div>
 						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-							<a href="javascript:void(0)" ng-click="exec('pull')">
+							<a href="javascript:void(0)" ng-click="exec('sftp')">
 								<div class="white-box">
-									<h3 class="text-danger"><i class="fa fa-git fa-2x"></i></h3>
-									<h3 class="text-danger">Pull</h3>
+									<h3 class="text-danger"><i class="fa fa-files-o fa-2x"></i></h3>
+									<h3 class="text-danger">Files</h3>
 								</div>
 							</a>
 						</div>
@@ -160,6 +160,39 @@
 				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 				<button type="button" id="btnLoad" class="btn btn-danger waves-effect" ng-disabled="delAppForm.action != 'CONFIRM'"
 				 data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting" ng-click="exec('delete')">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="sftp" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h2 class="modal-title">Files</h2>
+			</div>
+			<div class="modal-body text-white">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label>Connection Address</label>
+						<input disabled class="form-control sftp" value="sftp://{{appData.name+subDomain}}:22">
+					</div>
+					<div class="form-group">
+						<label>Username</label>
+						<input disabled class="form-control sftp" ng-model="appData._id">
+					</div>
+					<div class="form-group">
+						<label>Password</label>
+						<input disabled class="form-control sftp" ng-model="appData.sftp">
+					</div>
+				</form>
+				<span class="help-block">The SFTP password is your account password. Ensure that your client is set to use SFTP and
+					not FTP or FTPS for connections, there is a difference between the protocols.</span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="btnLoad" class="btn btn-danger waves-effect" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting"
+				 ng-click="exec('sftpReset')">Reset Pass</button>
+				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
