@@ -59,8 +59,11 @@
 				<tr ng-repeat="x in homeData.containers">
 					<td>{{ x.no+1 }}</td>
 					<td>
-						<a class="text-white" target="_blank" href="https://{{x.dns.custom?x.dns.name:x.name+subDomain}}">
-							{{x.dns.custom?x.dns.name:x.name+subDomain}}
+						<a class="text-white" target="_blank" href="https://{{x.dns.name}}" ng-if="x.dns.custom">
+							{{x.dns.name}}
+						</a><br>
+						<a class="text-white" target="_blank" href="https://{{x.name+subDomain}}">
+							{{x.name+subDomain}}
 						</a>
 					</td>
 					<td>{{ x.image }}</td>
