@@ -81,29 +81,33 @@ angular.module('optimusApp')
                 });
         };
         $scope.setDns = (domain) => {
-            $('#btnLoad').button('loading');
-            $http({
-                    method: 'POST',
-                    url: $rootScope.apiUrl + 'containers/setDns',
-                    data: {
-                        authKey: $rootScope.authKey,
-                        containerId: $scope.containerId,
-                        domain,
-                    }
-                })
-                .then((res) => {
-                    if (res.data.status == true) {
-                        $rootScope.closeModal();
-                        $state.reload();
-                        $rootScope.toast('Success', res.data.msg, 'success');
-                    } else {
+            if (~domain.indexOf('http') || ~domain.indexOf('www')) {
+                $rootScope.toast('Failed', 'Domain should not contain http or https or www.', 'error');
+            } else {
+                $('#btnLoad').button('loading');
+                $http({
+                        method: 'POST',
+                        url: $rootScope.apiUrl + 'containers/setDns',
+                        data: {
+                            authKey: $rootScope.authKey,
+                            containerId: $scope.containerId,
+                            domain,
+                        }
+                    })
+                    .then((res) => {
+                        if (res.data.status == true) {
+                            $rootScope.closeModal();
+                            $state.reload();
+                            $rootScope.toast('Success', res.data.msg, 'success');
+                        } else {
+                            $('#btnLoad').button('reset');
+                            $rootScope.toast('Failed', res.data.msg, 'error');
+                        }
+                    }, () => {
                         $('#btnLoad').button('reset');
-                        $rootScope.toast('Failed', res.data.msg, 'error');
-                    }
-                }, () => {
-                    $('#btnLoad').button('reset');
-                    $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
-                });
+                        $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
+                    });
+            }
         };
         $interval(() => {
             $scope.getStats();

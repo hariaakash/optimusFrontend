@@ -185,7 +185,7 @@
 						<span class="help-block">Input should be in capital.</span>
 					</div>
 				</form>
-				<table class="table table-hover margin bottom" ng-show="setDnsForm.$invalid || appData.dns.custom">
+				<table class="table table-hover margin bottom" ng-show="!setDnsForm.$invalid || appData.dns.custom">
 					<thead>
 						<tr>
 							<th>Record Type</th>
