@@ -57,6 +57,7 @@ angular.module('optimusApp')
                 })
                 .then((res) => {
                     if (res.data.status == true) {
+                        if (!$rootScope.homeData) $rootScope.homeData = {};
                         $rootScope.homeData.containers = res.data.data;
                         $scope.getContainerStats();
                     } else {
