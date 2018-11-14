@@ -33,6 +33,9 @@
 									<tr ng-repeat="x in userData.containers">
 										<td>{{ x.no+1 }}</td>
 										<td>
+											<a ng-if="x.dns.custom" class="text-white" target="_blank" href="https://{{x.dns.name}}">
+												{{x.dns.name}}
+											</a> &&
 											<a class="text-white" target="_blank" href="https://{{x.name+subDomain}}">
 												{{x.name+subDomain}}
 											</a>

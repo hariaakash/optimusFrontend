@@ -65,7 +65,7 @@
 							</a>
 						</div>
 						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-							<a href="javascript:void(0)" ng-click="toast('Soon', 'We are working on it.', 'success')">
+							<a href="javascript:void(0)" ng-click="openModal('setDns')">
 								<div class="white-box">
 									<h3 class="text-danger"><i class="fa fa-globe fa-2x"></i></h3>
 									<h3 class="text-danger">DNS</h3>
@@ -101,6 +101,11 @@
 							<tbody>
 								<tr>
 									<td>Domain: </td>
+									<td ng-if="appData.dns.custom">
+										<a class="text-white" target="_blank" href="https://{{appData.dns.name}}">
+											{{appData.dns.name}}
+										</a>
+									</td>
 									<td>
 										<a class="text-white" target="_blank" href="https://{{appData.name+subDomain}}">
 											{{appData.name+subDomain}}
@@ -160,6 +165,47 @@
 				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 				<button type="button" id="btnLoad" class="btn btn-danger waves-effect" ng-disabled="delAppForm.action != 'CONFIRM'"
 				 data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting" ng-click="exec('delete')">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="setDns" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h2 class="modal-title">Domain</h2>
+			</div>
+			<div class="modal-body text-white">
+				<h3 ng-show="appData.dns.custom">Your DNS is already set.</h3>
+				<form class="form-horizontal" name="setDnsForm" ng-show="!appData.dns.custom">
+					<div class="form-group">
+						<label>Enter domain: *</label>
+						<input type="text" class="form-control" ng-model="setDnsForm.domain" required>
+						<span class="help-block">Input should be in capital.</span>
+					</div>
+				</form>
+				<table class="table table-hover margin bottom" ng-show="setDnsForm.$invalid || appData.dns.custom">
+					<thead>
+						<tr>
+							<th>Record Type</th>
+							<th>Name</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>A</code></td>
+							<td><code>{{ appData.dns.custom?appData.dns.name:setDnsForm.domain }}</code></td>
+							<td><code>{{ hostIp }}</code></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+				<button type="button" id="btnLoad" class="btn btn-danger waves-effect" ng-disabled="setDnsForm.$invalid"
+				 data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting" ng-click="setDns(setDnsForm.domain)">Confirm</button>
 			</div>
 		</div>
 	</div>

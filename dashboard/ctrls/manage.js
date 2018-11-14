@@ -46,6 +46,7 @@ angular.module('optimusApp')
                 });
         };
         $scope.exec = (process) => {
+            $('#btnLoad').button('reset');
             $http({
                     method: 'POST',
                     url: $rootScope.apiUrl + 'containers/' + process,
@@ -69,8 +70,37 @@ angular.module('optimusApp')
                             $state.reload();
                             $rootScope.toast('Success', res.data.msg, 'success');
                         }
-                    } else $rootScope.toast('Failed', `Unable to perform: ${process}`, 'error');
+                    } else {
+                        $rootScope.toast('Failed', `Unable to perform: ${process}`, 'error');
+                        $('#btnLoad').button('reset');
+                    }
                 }, () => {
+                    $('#btnLoad').button('reset');
+                    $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
+                });
+        };
+        $scope.setDns = (domain) => {
+            $('#btnLoad').button('loading');
+            $http({
+                    method: 'POST',
+                    url: $rootScope.apiUrl + 'containers/setDns',
+                    data: {
+                        authKey: $rootScope.authKey,
+                        containerId: $scope.containerId,
+                        domain,
+                    }
+                })
+                .then((res) => {
+                    if (res.data.status == true) {
+                        $rootScope.closeModal();
+                        $state.reload();
+                        $rootScope.toast('Success', res.data.msg, 'success');
+                    } else {
+                        $('#btnLoad').button('reset');
+                        $rootScope.toast('Failed', res.data.msg, 'error');
+                    }
+                }, () => {
+                    $('#btnLoad').button('reset');
                     $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                 });
         };
