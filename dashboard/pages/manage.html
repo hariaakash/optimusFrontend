@@ -101,10 +101,10 @@
 							<tbody>
 								<tr>
 									<td>Domain: </td>
-									<td ng-if="appData.dns.custom">
-										<a class="text-white" target="_blank" href="https://{{appData.dns.name}}">
+									<td>
+										<a ng-if="appData.dns.custom" class="text-white" target="_blank" href="https://{{appData.dns.name}}">
 											{{appData.dns.name}}
-										</a>
+										</a><br ng-if="appData.dns.custom">
 										<a class="text-white" target="_blank" href="https://{{appData.name+subDomain}}">
 											{{appData.name+subDomain}}
 										</a>

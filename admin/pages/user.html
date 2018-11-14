@@ -35,7 +35,7 @@
 										<td>
 											<a ng-if="x.dns.custom" class="text-white" target="_blank" href="https://{{x.dns.name}}">
 												{{x.dns.name}}
-											</a><br>
+											</a><br ng-if="x.dns.custom">
 											<a class="text-white" target="_blank" href="https://{{x.name+subDomain}}">
 												{{x.name+subDomain}}
 											</a>
