@@ -59,6 +59,7 @@ angular.module('optimusApp')
                     if (res.data.status == true) {
                         if (process == 'delete') {
                             delete $scope.delAppForm.action;
+                            delete $scope.appData;
                             $rootScope.closeModal();
                             $state.go('dashboard.home');
                             $rootScope.toast('Success', res.data.msg, 'success');
