@@ -134,3 +134,7 @@ input[type="number"] {
 .sftp {
     background: none !important;
 }
+
+.modal-open {
+    padding-right: 0px !important;
+}

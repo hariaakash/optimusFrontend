@@ -44,6 +44,19 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                     }]
                 }
             })
+            .state("dashboard.databases", {
+                url: "/databases",
+                templateUrl: "pages/databases.html",
+                controller: "databasesCtrl",
+                resolve: {
+                    loadMyCtrl: ['$ocLazyLoad', ($ocLazyLoad) => {
+                        return $ocLazyLoad.load({
+                            name: 'Databases',
+                            files: ['./ctrls/databases.js', './plugins/angular-clipboard/angular-clipboard.min.js']
+                        })
+                    }]
+                }
+            })
             .state("dashboard.account", {
                 url: "/account",
                 templateUrl: "pages/account.html",
@@ -218,8 +231,7 @@ angular.module('optimusApp')
                 $('#' + x).modal('show');
         };
         $rootScope.closeModal = (x) => {
-            $('.modal-backdrop').remove();
-            $('body').removeClass('modal-open');
+            $('div.modal-backdrop').remove();
         };
         $rootScope.toast = (heading, text, status, hideAfter = 10000) => {
             // info, warning, error, success

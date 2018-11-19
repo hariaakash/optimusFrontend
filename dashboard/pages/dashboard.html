@@ -33,6 +33,11 @@
 					</a>
 				</li>
 				<li>
+					<a ui-sref="dashboard.databases" ng-if="profile" ng-class="{active: ('dashboard.databases' | includedByState)}">
+						<i class="fa fa-database fa-fw"></i> <span class="hide-menu">Databases</span>
+					</a>
+				</li>
+				<li>
 					<a ui-sref="dashboard.account.activity" ng-class="{active: ('dashboard.account.changePasswordAccount' | includedByState) || ('dashboard.account.activity' | includedByState)}">
 						<i class="fa fa-user fa-fw"></i> <span class="hide-menu">Account</span>
 					</a>

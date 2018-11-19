@@ -1,0 +1,141 @@
+<div class="container-fluid">
+	<div class="row bg-title">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h4 class="page-title">Databases Page</h4>
+		</div>
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<a target="_blank" href="https://discord.gg/s24xZ4" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Discord</a>
+			<ol class="breadcrumb">
+				<li><a ui-sref="dashboard.home" class="active">Home</a></li>
+				<li class="active">Databases</li>
+			</ol>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+			<div class="white-box">
+				<h3 class="box-title">DB's</h3>
+				<ul class="list-inline two-part">
+					<li><i class="fa fa-server text-danger"></i></li>
+					<li class="text-right">
+						<span>{{ homeData.databases.length + ' / ' + homeData.conf.limit.databases }}</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+			<div class="white-box">
+				<h3 class="box-title">TEAMS</h3>
+				<ul class="list-inline two-part">
+					<li><i class="fa fa-users text-danger"></i></li>
+					<li class="text-right"><span ng-bind="homeData.teams.length || 0"></span></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+			<a href="javascript:void(0)" ng-click="openDeployDBModal()">
+				<div class="white-box text-center bg-danger">
+					<h1 class="text-white" style="font-size: 32px;">Create DB</h1>
+					<h1 class="text-white" style="padding-top:5px;"><i class="fa fa-database"></i></h1>
+				</div>
+			</a>
+		</div>
+	</div>
+	<h3 class="text-center" ng-show="homeData.conf.block">Your account is blocked, contact support to know more info.</h3>
+	<div class="row" ng-hide="homeData.conf.block">
+		<h3 class="text-center" ng-hide="homeData.databases.length">Oh snap you don't have any DB's created.</h3>
+		<table class="table table-hover margin bottom" ng-show="homeData.databases.length">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>DB Name / User</th>
+					<th>Password</th>
+					<th>DB Type</th>
+					<th>Usage</th>
+					<th>View</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in homeData.databases">
+					<td>{{ x.no+1 }}</td>
+					<td>{{ x.name }}</td>
+					<td>{{ x._id }}</td>
+					<td>
+						<button type="button" class="btn btn-circle btn-info" clipboard supported="supported" text="x.pass" ng-click="copySuccess()">
+							<i class="fa fa-clipboard"></i>
+						</button>
+					</td>
+					<td>{{ x.dbType }}</td>
+					<td>{{ 0 }}%</td>
+					<td>
+						<div class="btn-group">
+							<button type="button" class="btn btn-danger btn-rounded dropdown-toggle" data-toggle="dropdown">
+								Manage <span class="fa fa-caret-down"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a ng-click="resetPassword(x._id)">Reset Password</a></li>
+								<li><a ng-click="openDeleteDBModal(x)">Delete</a></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div id="delDB" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h2 class="modal-title">Delete DB</h2>
+			</div>
+			<div class="modal-body text-white">
+				<form class="form-horizontal" name="delDBForm">
+					<div class="form-group">
+						<label>Enter DB name <code>{{delDB.name}}</code> to delete: *</label>
+						<input type="text" class="form-control" ng-model="delDBForm.action" required>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+				<button type="button" id="btnLoad" class="btn btn-danger waves-effect" ng-disabled="delDBForm.action != delDB.name"
+				 data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting" ng-click="delDBAct()">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="deployDB" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h2 class="modal-title">Deploy Database</h2>
+			</div>
+			<div class="modal-body text-white">
+				<form class="form-horizontal" name="deployDBForm">
+					<div class="form-group">
+						<label>Name: *</label>
+						<input type="text" class="form-control" ng-model="deployDBForm.name" placeholder="Test 3" required>
+						<span class="help-block">Enter desired name (alphabetic and should be of length 6 atleast).</span>
+					</div>
+					<div class="form-group" ng-init="deployDBForm.dbType='mysql'">
+						<label>Database Type: *</label>
+						<select class="form-control" ng-model="deployDBForm.dbType" required>
+							<option value="mysql">MySQL</option>
+							<option value="mongo">MongoDB</option>
+						</select>
+						<span class="help-block">Choose the type of database to be created.</span>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+				<button type="button" id="btnLoad" class="btn btn-danger waves-effect" ng-disabled="deployDBForm.$invalid"
+				 data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting" ng-click="deployDB()">Deploy</button>
+			</div>
+		</div>
+	</div>
+</div>
