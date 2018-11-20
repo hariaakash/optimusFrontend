@@ -64,6 +64,44 @@
 					</div>
 				</div>
 			</div>
+			<div class="panel panel-inverse">
+				<div class="panel-heading text-center">Databases</div>
+				<div class="panel-wrapper">
+					<div class="panel-body">
+						<div class="table-responsive" ng-show="userData.databases.length">
+							<table class="table color-table">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Name</th>
+										<th>DB Name / User</th>
+										<th>DB Type</th>
+										<th>Usage</th>
+										<!-- <th>View</th> -->
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="x in userData.databases">
+											<td>{{ x.no+1 }}</td>
+											<td>{{ x.name }}</td>
+											<td>{{ x._id }}</td>
+											<td>{{ x.dbType }}</td>
+											<td>{{ 0 }}%</td>
+										<!-- <td>
+											<a ui-sref="dashboard.manage({containerId:x._id})">
+												<button type="button" class="btn btn-circle btn-danger">
+													<i class="fa fa-gear"></i>
+												</button>
+											</a>
+										</td> -->
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h2 class="text-center" ng-show="!userData.databases.length">No Databases's created</h2>
+					</div>
+				</div>
+			</div>
 			<div class="panel panel-inverse text-center">
 				<div class="panel-heading">Manage</div>
 				<div class="panel-wrapper">
@@ -129,7 +167,11 @@
 								</tr>
 								<tr>
 									<td>Containers: </td>
-									<td>{{userData.containers.length + ' / ' + userData.conf.limit}}</td>
+									<td>{{userData.containers.length + ' / ' + userData.conf.limit.containers}}</td>
+								</tr>
+								<tr>
+									<td>Databases: </td>
+									<td>{{userData.databases.length + ' / ' + userData.conf.limit.databases}}</td>
 								</tr>
 								<tr>
 									<td>Verified: </td>

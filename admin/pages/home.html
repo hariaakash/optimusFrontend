@@ -15,19 +15,12 @@
 	<div class="row">
 		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 			<div class="white-box">
-				<h3 class="box-title">Registered</h3>
+				<h3 class="box-title">Blocked / Registered</h3>
 				<ul class="list-inline two-part">
 					<li><i class="fa fa-user text-danger"></i></li>
-					<li class="text-right"><span ng-bind="usersData.users.length"></span></li>
-				</ul>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-			<div class="white-box">
-				<h3 class="box-title">Verified</h3>
-				<ul class="list-inline two-part">
-					<li><i class="fa fa-user-plus text-danger"></i></li>
-					<li class="text-right"><span ng-bind="usersData.verified"></span></li>
+					<li class="text-right">
+						<span>{{usersData.blocked}} / {{usersData.users.length}}</span>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -37,6 +30,15 @@
 				<ul class="list-inline two-part">
 					<li><i class="fa fa-server text-danger"></i></li>
 					<li class="text-right"><span ng-bind="usersData.containers"></span></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+			<div class="white-box">
+				<h3 class="box-title">Databases</h3>
+				<ul class="list-inline two-part">
+					<li><i class="fa fa-database text-danger"></i></li>
+					<li class="text-right"><span ng-bind="usersData.databases"></span></li>
 				</ul>
 			</div>
 		</div>
@@ -63,9 +65,9 @@
 					<th>#</th>
 					<th>Email</th>
 					<th>Verified</th>
-					<th>Blocked</th>
 					<th>Block / Unblock</th>
-					<th>Containers</th>
+					<th>Container's</th>
+					<th>DB's</th>
 					<th>View</th>
 				</tr>
 			</thead>
@@ -78,16 +80,16 @@
 							<i class="fa" ng-class="{'fa-check': x.conf.verified == 'true', 'fa-close': x.conf.verified != 'true'}"></i>
 						</button>
 					</td>
-					<td>{{ x.conf.block }}</td>
 					<td>
 						<button type="button" class="btn btn-circle btn-info" ng-click="blockUser(x._id)" ng-show="!x.conf.block">
-							<i class="fa fa-user-times"></i>
+							<i class="fa fa-user-times" data-toggle="tooltip" title="Block!"></i>
 						</button>
 						<button type="button" class="btn btn-circle btn-danger" ng-click="unBlockUser(x._id)" ng-show="x.conf.block">
-							<i class="fa fa-user-plus"></i>
+							<i class="fa fa-user-plus" data-toggle="tooltip" title="Unblock!"></i>
 						</button>
 					</td>
-					<td>{{ x.containers + ' / ' + x.conf.limit }}</td>
+					<td>{{ x.containers + ' / ' + x.conf.limit.containers }}</td>
+					<td>{{ x.databases + ' / ' + x.conf.limit.databases }}</td>
 					<td>
 						<a ui-sref="dashboard.user({userId:x._id})">
 							<button type="button" class="btn btn-circle btn-info">
