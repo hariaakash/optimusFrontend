@@ -1,5 +1,5 @@
 angular.module('optimusApp')
-    .controller('homeCtrl', function ($rootScope, $scope, $http, $state, $interval) {
+    .controller('homeCtrl', function ($rootScope, $scope, $http, $state, $location, $interval) {
         $rootScope.checkAuth();
         $rootScope.profile = true;
         $scope.deployApp = () => {
@@ -87,7 +87,8 @@ angular.module('optimusApp')
             });
         };
         $interval(() => {
-            $scope.getContainerStats();
+            if ($location.path() == '/home')
+                $scope.getContainerStats();
         }, 60000);
         $scope.getContainers();
     });

@@ -1,5 +1,5 @@
 angular.module('optimusApp')
-	.controller('userCtrl', function ($rootScope, $scope, $http, $stateParams, $state, $interval) {
+	.controller('userCtrl', function ($rootScope, $scope, $http, $stateParams, $state, $location, $interval) {
 		$rootScope.checkAuth();
 		$rootScope.userId = $stateParams.userId;
 		$scope.getUserInfo = () => {
@@ -116,7 +116,8 @@ angular.module('optimusApp')
 			});
 		};
 		$interval(() => {
-			$scope.getContainerStats();
+			if ($location.path() == '/user')
+				$scope.getContainerStats();
 		}, 60000);
 		$scope.getUserInfo();
 	});

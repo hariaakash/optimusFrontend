@@ -1,5 +1,5 @@
 angular.module('optimusApp')
-    .controller('manageCtrl', function ($rootScope, $scope, $http, $stateParams, $state, $interval) {
+    .controller('manageCtrl', function ($rootScope, $scope, $http, $stateParams, $state, $location, $interval) {
         $rootScope.checkAuth();
         $rootScope.profile = true;
         $scope.containerId = $stateParams.containerId;
@@ -110,7 +110,8 @@ angular.module('optimusApp')
             }
         };
         $interval(() => {
-            $scope.getStats();
+            if ($location.path() == '/manage')
+                $scope.getStats();
         }, 60000);
         $scope.getAppInfo();
     });
