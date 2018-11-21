@@ -30,6 +30,7 @@ angular.module('optimusApp')
                         $rootScope.closeModal();
                         $state.reload();
                         $rootScope.checkAuth(true);
+                        $scope.getContainers();
                         $rootScope.toast('Success', res.data.msg, "success");
                     } else {
                         $('#btnLoad').button('reset');
