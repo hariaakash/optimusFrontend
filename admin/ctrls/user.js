@@ -69,7 +69,7 @@ angular.module('optimusApp')
 					$rootScope.toast('Failed', "Some error occurred, try again.", "error");
 				});
 		};
-		$scope.changeLimit = (limit) => {
+		$scope.changeLimit = (serviceId, limit) => {
 			if (limit >= 0) {
 				$http({
 						method: 'POST',
@@ -77,6 +77,7 @@ angular.module('optimusApp')
 						data: {
 							adminKey: $rootScope.adminKey,
 							userId: $rootScope.userId,
+							serviceId,
 							limit,
 						}
 					})

@@ -82,11 +82,11 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="x in userData.databases">
-											<td>{{ x.no+1 }}</td>
-											<td>{{ x.name }}</td>
-											<td>{{ x._id }}</td>
-											<td>{{ x.dbType }}</td>
-											<td>{{ 0 }}%</td>
+										<td>{{ x.no+1 }}</td>
+										<td>{{ x.name }}</td>
+										<td>{{ x._id }}</td>
+										<td>{{ x.dbType }}</td>
+										<td>{{ 0 }}%</td>
 										<!-- <td>
 											<a ui-sref="dashboard.manage({containerId:x._id})">
 												<button type="button" class="btn btn-circle btn-danger">
@@ -198,6 +198,14 @@
 			</div>
 			<div class="modal-body text-white">
 				<form class="form-horizontal" name="changeLimitForm">
+					<div class="form-group" ng-init="changeLimitForm.serviceId=1">
+						<label>Database Type: *</label>
+						<select class="form-control" ng-model="changeLimitForm.serviceId" required>
+							<option value="1">Containers</option>
+							<option value="2">Databases</option>
+						</select>
+						<span class="help-block">Choose the type of database to be created.</span>
+					</div>
 					<div class="form-group">
 						<label>Enter limit: *</label>
 						<input type="number" class="form-control" ng-model="changeLimitForm.limit" ng-init="changeLimitForm.limit=0"
@@ -209,7 +217,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 				<button type="button" id="btnLoad" class="btn btn-danger waves-effect" ng-disabled="changeLimitForm.limit < 0"
-				 data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting" ng-click="changeLimit(changeLimitForm.limit)">Change</button>
+				 data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting" ng-click="changeLimit(changeLimitForm.serviceId,changeLimitForm.limit)">Change</button>
 			</div>
 		</div>
 	</div>
