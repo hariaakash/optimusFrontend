@@ -117,7 +117,7 @@ angular.module('optimusApp')
 			});
 		};
 		$interval(() => {
-			if ($location.path() == '/user')
+			if ($location.path().includes('/user'))
 				$scope.getContainerStats();
 		}, 60000);
 		$scope.getUserInfo();

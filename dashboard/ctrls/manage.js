@@ -110,7 +110,7 @@ angular.module('optimusApp')
             }
         };
         $interval(() => {
-            if ($location.path() == '/manage')
+            if ($location.path().includes('/manage'))
                 $scope.getStats();
         }, 60000);
         $scope.getAppInfo();
