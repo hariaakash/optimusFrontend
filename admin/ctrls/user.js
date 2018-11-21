@@ -105,7 +105,8 @@ angular.module('optimusApp')
 							adminKey: $rootScope.adminKey,
 							userId: $rootScope.userId,
 							containerId: container._id,
-						}
+						},
+						ignoreLoadingBar: true
 					})
 					.then((res) => {
 						if (res.data.status == true) container.stats = res.data.data.stats;

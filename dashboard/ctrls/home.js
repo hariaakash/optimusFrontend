@@ -76,7 +76,8 @@ angular.module('optimusApp')
                         params: {
                             authKey: $rootScope.authKey,
                             containerId: container._id,
-                        }
+                        },
+                        ignoreLoadingBar: true
                     })
                     .then((res) => {
                         if (res.data.status == true) container.stats = res.data.data.stats;
