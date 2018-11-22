@@ -71,6 +71,7 @@ angular.module('optimusApp')
 		};
 		$scope.changeLimit = (serviceId, limit) => {
 			if (limit >= 0) {
+				$('#btnLoad').button('loading');
 				$http({
 						method: 'POST',
 						url: $rootScope.apiUrl + 'admins/changeLimitUser',
@@ -83,6 +84,7 @@ angular.module('optimusApp')
 					})
 					.then((res) => {
 						if (res.data.status == true) {
+							$rootScope.closeModal();
 							$state.reload();
 							$rootScope.toast('Success', res.data.msg, "success");
 						} else {

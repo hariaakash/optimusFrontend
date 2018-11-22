@@ -201,8 +201,8 @@
 					<div class="form-group" ng-init="changeLimitForm.serviceId=1">
 						<label>Database Type: *</label>
 						<select class="form-control" ng-model="changeLimitForm.serviceId" required>
-							<option value="1">Containers</option>
-							<option value="2">Databases</option>
+							<option ng-value="1">Containers</option>
+							<option ng-value="2">Databases</option>
 						</select>
 						<span class="help-block">Choose the type of database to be created.</span>
 					</div>
