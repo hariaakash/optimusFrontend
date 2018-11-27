@@ -245,7 +245,7 @@ angular.module('optimusApp')
             else
                 $('#' + x).modal('show');
         };
-        $rootScope.closeModal = (x) => {
+        $rootScope.closeModal = () => {
             $('div.modal-backdrop').remove();
         };
         $rootScope.toast = (heading, text, status, hideAfter = 10000) => {
