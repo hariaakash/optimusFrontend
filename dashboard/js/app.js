@@ -44,6 +44,19 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                     }]
                 }
             })
+            .state("dashboard.fileManager", {
+                url: "/fileManager/:containerId/",
+                templateUrl: "pages/fileManager.html",
+                controller: "fileManagerCtrl",
+                resolve: {
+                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: 'File Manager',
+                            files: ['./ctrls/fileManager.js']
+                        })
+                    }]
+                }
+            })
             .state("dashboard.databases", {
                 url: "/databases",
                 templateUrl: "pages/databases.html",
@@ -175,6 +188,8 @@ angular.module('optimusApp')
     .controller('globalCtrl', ($rootScope, $location, $http, $state, $ocLazyLoad) => {
         // $rootScope.apiUrl = 'http://localhost:8080/';
         $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
+        $rootScope.discordUrl = 'https://discord.gg/c7EptFq';
+        $rootScope.sftpUrl = 'sftp.optimuscp.io';
         $ocLazyLoad.load(['./plugins/toast/toast.min.js', './plugins/toast/toast.min.css']);
         $rootScope.copyrightYear = new Date().getFullYear();
         $rootScope.subDomain = '.gameservers.ooo';

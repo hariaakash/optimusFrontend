@@ -4,7 +4,7 @@
 			<h4 class="page-title">Manage App</h4>
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-			<a target="_blank" href="https://discord.gg/s24xZ4" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Discord</a>
+			<a target="_blank" href="{{discordUrl}}" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Discord</a>
 			<ol class="breadcrumb">
 				<li><a ui-sref="dashboard.home" class="active">Home</a></li>
 				<li class="active">Manage</li>
@@ -216,18 +216,26 @@
 				<h2 class="modal-title">Files</h2>
 			</div>
 			<div class="modal-body text-white">
+				<a ui-sref="dashboard.fileManager({containerId: containerId})">
+					<button type="button" class="btn btn-rounded btn-danger waves-effect pull-right">Web File Manager</button>
+				</a>
+				<br>
 				<form class="form-horizontal">
 					<div class="form-group">
-						<label>Connection Address</label>
-						<input disabled class="form-control sftp" value="sftp://sftp.optimuscp.io:22">
+						<label>Hostname</label>
+						<input readonly class="form-control sftp" ng-value="sftpUrl">
+					</div>
+					<div class="form-group">
+						<label>Port</label>
+						<input readonly class="form-control sftp" value="22">
 					</div>
 					<div class="form-group">
 						<label>Username</label>
-						<input disabled class="form-control sftp" ng-model="appData._id">
+						<input readonly class="form-control sftp" ng-value="appData._id">
 					</div>
 					<div class="form-group">
 						<label>Password</label>
-						<input disabled class="form-control sftp" ng-model="appData.sftp">
+						<input readonly class="form-control sftp" ng-value="appData.sftp">
 					</div>
 				</form>
 				<span class="help-block">The SFTP password is your account password. Ensure that your client is set to use SFTP and
