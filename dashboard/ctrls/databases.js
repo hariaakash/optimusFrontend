@@ -8,14 +8,14 @@ angular.module('optimusApp')
                 name: $scope.deployDBForm.name,
                 dbType: $scope.deployDBForm.dbType,
             };
-            if ($scope.data.name.length >= 4) {
+            if ($scope.data.name.length >= 4 && $scope.data.name.length <= 20) {
                 if (/^[\w\-\s]+$/.test($scope.data.name)) {
                     $scope.sendRequest('create', $scope.data);
                 } else {
                     $rootScope.toast('Failed', 'Name can be alphanumeric and can contain hyphen, underscore and spaces.', 'error');
                 }
             } else {
-                $rootScope.toast('Failed', 'Name should atleast be of 4 characters.', 'error');
+                $rootScope.toast('Failed', 'Length of name should be between 4 and 20.', 'error');
             }
         };
         $scope.sendRequest = (uri, data) => {
