@@ -49,6 +49,7 @@
 				<tr>
 					<th>#</th>
 					<th>Name</th>
+					<th>Host</th>
 					<th>DB Name / User</th>
 					<th>Password</th>
 					<th>DB Type</th>
@@ -60,6 +61,7 @@
 				<tr ng-repeat="x in homeData.databases">
 					<td>{{ x.no+1 }}</td>
 					<td>{{ x.name }}</td>
+					<td> db.optimuscp.io </td>
 					<td>{{ x._id }}</td>
 					<td>
 						<button type="button" class="btn btn-circle btn-info" clipboard supported="supported" text="x.pass" ng-click="copySuccess()">
