@@ -21,6 +21,7 @@
 								<thead>
 									<tr>
 										<th>#</th>
+										<th>ID</th>
 										<th>Domain</th>
 										<th>Stack</th>
 										<th>Status</th>
@@ -32,6 +33,7 @@
 								<tbody>
 									<tr ng-repeat="x in userData.containers">
 										<td>{{ x.no+1 }}</td>
+										<td>{{ x._id }}</td>
 										<td>
 											<a ng-if="x.dns.custom" class="text-white" target="_blank" href="https://{{x.dns.name}}">
 												{{x.dns.name}}
