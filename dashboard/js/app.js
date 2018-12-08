@@ -190,7 +190,7 @@ angular.module('optimusApp')
         $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
         $rootScope.discordUrl = 'https://discord.gg/c7EptFq';
         $rootScope.sftpUrl = 'sftp.optimuscp.io';
-        $ocLazyLoad.load(['./plugins/toast/toast.min.js', './plugins/toast/toast.min.css']);
+        $ocLazyLoad.load(['./plugins/toast/toast.min.js', './plugins/toast/toast.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js']);
         $rootScope.copyrightYear = new Date().getFullYear();
         $rootScope.subDomain = '.gameservers.ooo';
         $rootScope.hostIp = '78.46.21.224';

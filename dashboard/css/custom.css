@@ -1,6 +1,10 @@
 /*Preloader*/
 
-@import url("../plugins/angular-loading-bar/loading-bar.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css");
+
+#loading-bar .bar {
+    background: #fb9678;
+}
 
 .preloader-body {
     opacity: 0;

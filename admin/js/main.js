@@ -2,12 +2,12 @@ function load(script) {
 	document.write('<' + 'script src="' + script + '" type="text/javascript"><' + '/script>');
 }
 
-load("./js/angular.min.js");
-load("./plugins/ui-router/angular-ui-router.min.js");
-load("./plugins/ocLazyLoad/ocLazyLoad.min.js");
-load("./plugins/js-cookie/js-cookie.min.js");
+load("https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js");
+load("https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js");
+load("https://cdnjs.cloudflare.com/ajax/libs/oclazyload/1.0.1/ocLazyLoad.min.js");
+load("https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js");
 load("./js/app.js");
-load("./plugins/angular-loading-bar/loading-bar.js");
+load("https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js");
 $(document).ready(function () {
 	// Theme settings
 	//Open-Close-right sidebar
