@@ -110,9 +110,29 @@ angular.module('optimusApp')
                     });
             }
         };
-        $interval(() => {
-            if ($location.path().includes('/manage'))
-                $scope.getStats();
-        }, 60000);
         $scope.getAppInfo();
+        $scope.$watch('socket.connected', (data) => {
+            if (data) {
+                console.log(`Start stats for: ${$scope.containerId}`);
+                $rootScope.socket.emit('containerStats', {
+                    containerId: $scope.containerId,
+                    status: 'start'
+                });
+                $rootScope.socket.on('containerStats', (data) => {
+                    Object.assign({}, $scope.appData.stats, data);
+                });
+                $rootScope.socket.on('containerLogs', (data) => {
+                    console.log(data);
+                });
+            }
+        });
+        $scope.$on('$destroy', () => {
+            if ($rootScope.socket.connected) {
+                console.log(`Stop stats for: ${$scope.containerId}`);
+                $rootScope.socket.emit('containerStats', {
+                    containerId: $scope.containerId,
+                    status: 'stop'
+                });
+            }
+        });
     });

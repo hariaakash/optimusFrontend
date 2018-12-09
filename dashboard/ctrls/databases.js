@@ -86,5 +86,9 @@ angular.module('optimusApp')
                     $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                 });
         };
-        $scope.getDatabases();
+        $scope.$watch('signStatus', (data) => {
+            if (data) {
+                $scope.getDatabases();
+            }
+        });
     });

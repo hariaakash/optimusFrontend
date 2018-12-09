@@ -92,5 +92,9 @@ angular.module('optimusApp')
             if ($location.path().includes('/home'))
                 $scope.getContainerStats();
         }, 60000);
-        $scope.getContainers();
+        $scope.$watch('signStatus', (data) => {
+            if (data) {
+                $scope.getContainers();
+            }
+        });
     });

@@ -49,7 +49,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                 templateUrl: "pages/fileManager.html",
                 controller: "fileManagerCtrl",
                 resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                    loadMyCtrl: ['$ocLazyLoad', ($ocLazyLoad) => {
                         return $ocLazyLoad.load({
                             name: 'File Manager',
                             files: ['./ctrls/fileManager.js']
@@ -210,6 +210,10 @@ angular.module('optimusApp')
                         .then((res) => {
                             if (res.data.status == true) {
                                 $rootScope.homeData = res.data.data;
+                                $rootScope.signStatus = true;
+                                $rootScope.socket = io.connect($rootScope.apiUrl, {
+                                    query: `authKey=${$rootScope.authKey}`,
+                                });
                                 if ($rootScope.homeData.conf.block) $state.go('dashboard.home');
                             } else {
                                 $rootScope.logout();
@@ -223,7 +227,6 @@ angular.module('optimusApp')
                 var path = $location.path();
                 if (path == '/login' || path == '/register' || path == '/verifyEmail')
                     $state.go('dashboard.home');
-                $rootScope.signStatus = true;
             } else {
                 $rootScope.authKey = '';
                 $rootScope.signStatus = false;
@@ -237,6 +240,7 @@ angular.module('optimusApp')
             delete $rootScope.authKey;
             $rootScope.signStatus = false;
             if (x) $rootScope.toast('Success', 'Logged out.', "info");
+            $rooScope.socket.disconnect();
             $state.go('login');
         };
         $rootScope.openModal = (x) => {
