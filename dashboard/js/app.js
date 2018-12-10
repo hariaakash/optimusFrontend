@@ -240,7 +240,7 @@ angular.module('optimusApp')
             delete $rootScope.authKey;
             $rootScope.signStatus = false;
             if (x) $rootScope.toast('Success', 'Logged out.', "info");
-            $rooScope.socket.disconnect();
+            $rootScope.socket.disconnect();
             $state.go('login');
         };
         $rootScope.openModal = (x) => {
