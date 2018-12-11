@@ -118,19 +118,17 @@ angular.module('optimusApp')
                 $timeout(() => {
                     $scope.ansi_up = new AnsiUp;
                     console.log(`Start stats & logs for: ${$scope.containerId}`);
-                    if (!$rootScope.socket.reconnection)
-                        $rootScope.socket.emit('containerStats', {
-                            containerId: $scope.containerId,
-                            status: 'start'
-                        });
+                    $rootScope.socket.emit('containerStats', {
+                        containerId: $scope.containerId,
+                        status: 'start'
+                    });
                     $rootScope.socket.on('containerStats', (data) => {
                         Object.assign({}, $scope.appData.stats, data);
                     });
-                    if (!$rootScope.socket.reconnection)
-                        $rootScope.socket.emit('containerLogs', {
-                            containerId: $scope.containerId,
-                            status: 'start'
-                        });
+                    $rootScope.socket.emit('containerLogs', {
+                        containerId: $scope.containerId,
+                        status: 'start'
+                    });
                     let i = 0;
                     $rootScope.socket.on('containerLogs', (data) => {
                         $scope.appData.logs.push({
