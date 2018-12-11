@@ -1,5 +1,5 @@
 angular.module('optimusApp')
-    .controller('manageCtrl', function ($rootScope, $scope, $http, $stateParams, $state, $location, $interval) {
+    .controller('manageCtrl', function ($rootScope, $scope, $http, $stateParams, $state, $sce) {
         $rootScope.checkAuth();
         $rootScope.profile = true;
         $scope.containerId = $stateParams.containerId;
@@ -16,6 +16,7 @@ angular.module('optimusApp')
                     .then((res) => {
                         if (res.data.status == true) {
                             $scope.appData = res.data.data;
+                            $scope.appData.logs = [];
                             $scope.getStats();
                         } else {
                             $rootScope.toast('Failed', res.data.msg, 'error');
@@ -47,7 +48,7 @@ angular.module('optimusApp')
                 });
         };
         $scope.exec = (process) => {
-            $('#btnLoad').button('reset');
+            $('#btnLoad').button('loading');
             $http({
                     method: 'POST',
                     url: $rootScope.apiUrl + 'containers/' + process,
@@ -72,6 +73,7 @@ angular.module('optimusApp')
                             $state.reload();
                             $rootScope.toast('Success', res.data.msg, 'success');
                         }
+                        $('#btnLoad').button('reset');
                     } else {
                         $rootScope.toast('Failed', `Unable to perform: ${process}`, 'error');
                         $('#btnLoad').button('reset');
@@ -111,25 +113,45 @@ angular.module('optimusApp')
             }
         };
         $scope.getAppInfo();
-        $scope.$watch('socket.connected', (data) => {
+        $rootScope.$watch('socket.connected', (data) => {
             if (data) {
-                console.log(`Start stats for: ${$scope.containerId}`);
-                $rootScope.socket.emit('containerStats', {
-                    containerId: $scope.containerId,
-                    status: 'start'
-                });
+                $scope.ansi_up = new AnsiUp;
+                console.log(`Start stats & logs for: ${$scope.containerId}`);
+                if (!$rootScope.socket.reconnection)
+                    $rootScope.socket.emit('containerStats', {
+                        containerId: $scope.containerId,
+                        status: 'start'
+                    });
                 $rootScope.socket.on('containerStats', (data) => {
                     Object.assign({}, $scope.appData.stats, data);
                 });
+                if (!$rootScope.socket.reconnection)
+                    $rootScope.socket.emit('containerLogs', {
+                        containerId: $scope.containerId,
+                        status: 'start'
+                    });
+                let i = 0;
                 $rootScope.socket.on('containerLogs', (data) => {
-                    console.log(data);
+                    $scope.appData.logs.push({
+                        id: i,
+                        log: $sce.trustAsHtml($scope.ansi_up.ansi_to_html(data)),
+                    });
+                    $scope.box = document.getElementById('terminal');
+                    $scope.box.scrollTop = $scope.box.scrollHeight + 100;
+                    $scope.$apply();
+                    i += 1;
                 });
             }
         });
         $scope.$on('$destroy', () => {
+            delete $scope.appData;
             if ($rootScope.socket.connected) {
-                console.log(`Stop stats for: ${$scope.containerId}`);
+                console.log(`Stop stats & logs for: ${$scope.containerId}`);
                 $rootScope.socket.emit('containerStats', {
+                    containerId: $scope.containerId,
+                    status: 'stop'
+                });
+                $rootScope.socket.emit('containerLogs', {
                     containerId: $scope.containerId,
                     status: 'stop'
                 });

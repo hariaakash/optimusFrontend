@@ -39,7 +39,7 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                     loadMyCtrl: ['$ocLazyLoad', ($ocLazyLoad) => {
                         return $ocLazyLoad.load({
                             name: 'Server Manage',
-                            files: ['./ctrls/manage.js']
+                            files: ['./ctrls/manage.js', './css/terminal.css', './plugins/ansi_up/ansi_up.js']
                         })
                     }]
                 }
@@ -213,6 +213,22 @@ angular.module('optimusApp')
                                 $rootScope.signStatus = true;
                                 $rootScope.socket = io.connect($rootScope.apiUrl, {
                                     query: `authKey=${$rootScope.authKey}`,
+                                    reconnection: true,
+                                    reconnectionDelay: 1000,
+                                    reconnectionDelayMax: 5000,
+                                    reconnectionAttempts: 5,
+                                });
+                                $rootScope.socket.on('connect', () => {
+                                    console.log('Socket connection established');
+                                    $rootScope.socket.reconnection = false;
+                                    $rootScope.$apply();
+                                });
+                                $rootScope.socket.on('connect_error', (err) => {
+                                    console.log(err);
+                                    console.log('Socket disconnected');
+                                    $rootScope.socket.reconnection = true;
+                                    $rootScope.toast('Error', 'Socket disconnected', 'error');
+                                    $rootScope.$apply();
                                 });
                                 if ($rootScope.homeData.conf.block) $state.go('dashboard.home');
                             } else {
