@@ -113,9 +113,10 @@ angular.module('optimusApp')
             }
         };
         $scope.getAppInfo();
-        $rootScope.$watch('socket.connected', (data) => {
+        $scope.listener = $rootScope.$watch('socket.connected', (data) => {
             if (data) {
-                $timeout(() => {
+                if (!$rootScope.socketData.containers.includes($scope.containerId)) {
+                    $rootScope.socketData.containers.push($scope.containerId);
                     $scope.ansi_up = new AnsiUp;
                     console.log(`Start stats & logs for: ${$scope.containerId}`);
                     $rootScope.socket.emit('containerStats', {
@@ -131,16 +132,15 @@ angular.module('optimusApp')
                     });
                     let i = 0;
                     $rootScope.socket.on('containerLogs', (data) => {
-                        $scope.appData.logs.push({
-                            id: i,
-                            log: $sce.trustAsHtml($scope.ansi_up.ansi_to_html(data)),
-                        });
+                        $scope.appData.logs.push($sce.trustAsHtml($scope.ansi_up.ansi_to_html(data)));
                         $scope.box = document.getElementById('terminal');
-                        $scope.box.scrollTop = $scope.box.scrollHeight + 100;
+                        $scope.box.scrollTop = $scope.box.scrollHeight;
                         $scope.$apply();
                         i++;
                     });
-                }, 1000);
+                } else {
+                    $state.reload();
+                }
             }
         });
         $scope.$on('$destroy', () => {
@@ -155,5 +155,9 @@ angular.module('optimusApp')
                     status: 'stop'
                 });
             }
+            $scope.listener();
+            $rootScope.socketData.containers = $rootScope.socketData.containers.filter(x => {
+                return x != $scope.containerId;
+            });
         });
     });

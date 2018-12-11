@@ -216,15 +216,17 @@ angular.module('optimusApp')
                                     reconnection: true,
                                     reconnectionDelay: 1000,
                                     reconnectionDelayMax: 5000,
-                                    reconnectionAttempts: 5,
                                 });
+                                $rootScope.socketData = {
+                                    containers: [],
+                                };
                                 $rootScope.socket.on('connect', () => {
                                     console.log('Socket connection established');
                                     $rootScope.$apply();
                                 });
                                 $rootScope.socket.on('disconnect', (err) => {
                                     console.log('Socket disconnected');
-                                    $rootScope.toast('Error', 'Socket disconnected', 'error');
+                                    $rootScope.toast('Error', 'Socket disconnected', 'error', 2000);
                                     $rootScope.$apply();
                                 });
                                 if ($rootScope.homeData.conf.block) $state.go('dashboard.home');
