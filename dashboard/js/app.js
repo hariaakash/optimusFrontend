@@ -223,8 +223,7 @@ angular.module('optimusApp')
                                     $rootScope.socket.reconnection = false;
                                     $rootScope.$apply();
                                 });
-                                $rootScope.socket.on('connect_error', (err) => {
-                                    console.log(err);
+                                $rootScope.socket.on('disconnect', (err) => {
                                     console.log('Socket disconnected');
                                     $rootScope.socket.reconnection = true;
                                     $rootScope.toast('Error', 'Socket disconnected', 'error');
