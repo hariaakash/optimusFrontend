@@ -133,9 +133,9 @@
 								</tr>
 								<tr>
 									<td>Status: </td>
-									<td class="{{appData.stats[appData.stats.length-1].cpu==-1?'text-danger':'text-success'}}">
+									<td class="{{appData.stats[appData.stats.length-1].ram==-1?'text-danger':'text-success'}}">
 										<b ng-show="appData.stats.length">
-											<i class="fa fa-circle"></i>&emsp;{{appData.stats[appData.stats.length-1].cpu==-1?'STOPPED':'RUNNING'}}
+											<i class="fa fa-circle"></i>&emsp;{{appData.stats[appData.stats.length-1].ram==-1?'STOPPED':'RUNNING'}}
 										</b>
 										<b ng-hide="appData.stats.length">Querying..</b>
 									</td>

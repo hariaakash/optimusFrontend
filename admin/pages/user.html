@@ -43,9 +43,9 @@
 											</a>
 										</td>
 										<td>{{ x.image }}</td>
-										<td class="{{x.stats.cpu==-1?'text-danger':'text-success'}}">
+										<td class="{{x.stats.ram==-1?'text-danger':'text-success'}}">
 											<b ng-show="x.stats">
-												<i class="fa fa-circle"></i>&emsp;{{ x.stats.cpu==-1?'STOPPED':'RUNNING' }}
+												<i class="fa fa-circle"></i>&emsp;{{ x.stats.ram==-1?'STOPPED':'RUNNING' }}
 											</b>
 											<b ng-hide="x.stats">Querying..</b>
 										</td>
