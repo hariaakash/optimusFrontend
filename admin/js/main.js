@@ -10,30 +10,6 @@ load("./js/app.js");
 load("https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js");
 $(document).ready(function () {
 	// Theme settings
-	//Open-Close-right sidebar
-	$(".right-side-toggle").click(function () {
-		$(".right-sidebar").slideDown(50);
-		$(".right-sidebar").toggleClass("shw-rside");
-		// Fix header
-		$(".fxhdr").click(function () {
-			$("body").toggleClass("fix-header");
-		});
-		// Fix sidebar
-		$(".fxsdr").click(function () {
-			$("body").toggleClass("fix-sidebar");
-		});
-		// Service panel js
-		if ($("body").hasClass("fix-header")) {
-			$('.fxhdr').attr('checked', true);
-		} else {
-			$('.fxhdr').attr('checked', false);
-		}
-		if ($("body").hasClass("fix-sidebar")) {
-			$('.fxsdr').attr('checked', true);
-		} else {
-			$('.fxsdr').attr('checked', false);
-		}
-	});
 	//Loads the correct sidebar on window load,
 	//collapses the sidebar on window resize.
 	// Sets the min-height of #page-wrapper to window size
