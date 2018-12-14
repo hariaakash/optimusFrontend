@@ -52,6 +52,7 @@
 					<th>Status</th>
 					<th>CPU</th>
 					<th>RAM</th>
+					<th>ROM</th>
 					<th>View</th>
 				</tr>
 			</thead>
@@ -75,6 +76,7 @@
 					</td>
 					<td>{{ x.stats.cpu }}%</td>
 					<td>{{ x.stats.ram }}%</td>
+					<td>{{ x.stats.rom || '...' }}</td>
 					<td>
 						<a ui-sref="dashboard.manage({containerId:x._id})">
 							<button type="button" class="btn btn-circle btn-danger">

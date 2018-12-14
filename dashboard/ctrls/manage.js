@@ -43,7 +43,10 @@ angular.module('optimusApp')
                     ignoreLoadingBar: true
                 })
                 .then((res) => {
-                    if (res.data.status == true) $scope.appData.stats[0] = res.data.data.stats;
+                    if (res.data.status == true) {
+                        $scope.appData.stats[0] = res.data.data.stats;
+                        $scope.appData.stats[0].rom += 'B';
+                    }
                 }, () => {
                     delete $scope.appData.stats;
                     $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
