@@ -133,24 +133,24 @@
 								</tr>
 								<tr>
 									<td>Status: </td>
-									<td class="{{appData.stats.cpu==-1?'text-danger':'text-success'}}">
-										<b ng-show="appData.stats">
-											<i class="fa fa-circle"></i>&emsp;{{appData.stats.cpu==-1?'STOPPED':'RUNNING'}}
+									<td class="{{appData.stats[appData.stats.length-1].cpu==-1?'text-danger':'text-success'}}">
+										<b ng-show="appData.stats.length">
+											<i class="fa fa-circle"></i>&emsp;{{appData.stats[appData.stats.length-1].cpu==-1?'STOPPED':'RUNNING'}}
 										</b>
-										<b ng-hide="appData.stats">Querying..</b>
+										<b ng-hide="appData.stats.length">Querying..</b>
 									</td>
 								</tr>
 								<tr>
 									<td>CPU: </td>
-									<td>{{ appData.stats.cpu }}%</td>
+									<td>{{ appData.stats[appData.stats.length-1].cpu }}%</td>
 								</tr>
 								<tr>
 									<td>RAM: </td>
-									<td>{{ appData.stats.ram }}%</td>
+									<td>{{ appData.stats[appData.stats.length-1].ram }}%</td>
 								</tr>
 								<tr>
 									<td>ROM: </td>
-									<td>{{ appData.stats.rom }}</td>
+									<td>{{ appData.stats[0].rom }}</td>
 								</tr>
 							</tbody>
 						</table>

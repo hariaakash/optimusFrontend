@@ -3,6 +3,10 @@ angular.module('optimusApp')
         $rootScope.checkAuth();
         $rootScope.profile = true;
         $scope.containerId = $stateParams.containerId;
+        $scope.appData = {
+            logs: [],
+            stats: [],
+        };
         $scope.getAppInfo = () => {
             if ($scope.containerId) {
                 $http({
@@ -15,8 +19,7 @@ angular.module('optimusApp')
                     })
                     .then((res) => {
                         if (res.data.status == true) {
-                            $scope.appData = res.data.data;
-                            $scope.appData.logs = [];
+                            Object.assign($scope.appData, res.data.data);
                             $scope.getStats();
                         } else {
                             $rootScope.toast('Failed', res.data.msg, 'error');
@@ -40,8 +43,7 @@ angular.module('optimusApp')
                     ignoreLoadingBar: true
                 })
                 .then((res) => {
-                    if (res.data.status == true) $scope.appData.stats = res.data.data.stats;
-                    else delete $scope.appData.stats;
+                    if (res.data.status == true) $scope.appData.stats[0] = res.data.data.stats;
                 }, () => {
                     delete $scope.appData.stats;
                     $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
@@ -60,8 +62,6 @@ angular.module('optimusApp')
                 .then((res) => {
                     if (res.data.status == true) {
                         if (process == 'delete') {
-                            delete $scope.delAppForm.action;
-                            delete $scope.appData;
                             $rootScope.closeModal();
                             $state.go('dashboard.home');
                             $rootScope.toast('Success', res.data.msg, 'success');
@@ -116,27 +116,25 @@ angular.module('optimusApp')
         $scope.listener = $rootScope.$watch('socket.connected', (data) => {
             if (data) {
                 if (!$rootScope.socketData.containers.includes($scope.containerId)) {
+                    console.log(`Start stats & logs for: ${$scope.containerId}`);
                     $rootScope.socketData.containers.push($scope.containerId);
                     $scope.ansi_up = new AnsiUp;
-                    console.log(`Start stats & logs for: ${$scope.containerId}`);
                     $rootScope.socket.emit('containerStats', {
                         containerId: $scope.containerId,
                         status: 'start'
                     });
                     $rootScope.socket.on('containerStats', (data) => {
-                        Object.assign({}, $scope.appData.stats, data);
+                        $scope.appData.stats.push(data);
                     });
                     $rootScope.socket.emit('containerLogs', {
                         containerId: $scope.containerId,
                         status: 'start'
                     });
-                    let i = 0;
                     $rootScope.socket.on('containerLogs', (data) => {
                         $scope.appData.logs.push($sce.trustAsHtml($scope.ansi_up.ansi_to_html(data)));
                         $scope.box = document.getElementById('terminal');
                         $scope.box.scrollTop = $scope.box.scrollHeight;
                         $scope.$apply();
-                        i++;
                     });
                 } else {
                     $state.reload();
