@@ -219,15 +219,19 @@ angular.module('optimusApp')
                                 });
                                 $rootScope.socketData = {
                                     containers: [],
+                                    logout: false,
                                 };
                                 $rootScope.socket.on('connect', () => {
+                                    if ($rootScope.socketData.logout) $rootScope.socketData.logout = false;
                                     console.log('Socket connection established');
                                     $rootScope.$apply();
                                 });
-                                $rootScope.socket.on('disconnect', (err) => {
+                                $rootScope.socket.on('disconnect', () => {
+                                    if (!$rootScope.socketData.logout) {
+                                        $rootScope.toast('Error', 'Socket disconnected', 'error', 2000);
+                                        $rootScope.$apply();
+                                    }
                                     console.log('Socket disconnected');
-                                    $rootScope.toast('Error', 'Socket disconnected', 'error', 2000);
-                                    $rootScope.$apply();
                                 });
                                 if ($rootScope.homeData.conf.block) $state.go('dashboard.home');
                             } else {
@@ -255,7 +259,10 @@ angular.module('optimusApp')
             delete $rootScope.authKey;
             $rootScope.signStatus = false;
             if (x) $rootScope.toast('Success', 'Logged out.', "info");
-            if ($rootScope.socket.connected) $rootScope.socket.disconnect();
+            if ($rootScope.socket.connected) {
+                $rootScope.socketData.logout = true;
+                $rootScope.socket.disconnect();
+            }
             $state.go('login');
         };
         $rootScope.openModal = (x) => {
