@@ -49,7 +49,7 @@
 											</b>
 											<b ng-hide="x.stats">Querying..</b>
 										</td>
-										<td>{{ x.stats.cpu }}%</td>
+										<td>{{ x.stats.cpu || 0 }}%</td>
 										<td>{{ x.stats.ram }}%</td>
 										<!-- <td>
 											<a ui-sref="dashboard.manage({containerId:x._id})">

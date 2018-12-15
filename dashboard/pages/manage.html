@@ -14,7 +14,7 @@
 	<div class="row">
 		<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 			<div class="panel panel-inverse">
-				<div class="panel-heading text-center">Terminal Logs</div>
+				<div class="panel-heading text-center">Logs</div>
 				<div class="panel-wrapper">
 					<div id="terminal">
 						<div class="cmd" ng-repeat="x in appData.logs">
@@ -142,7 +142,7 @@
 								</tr>
 								<tr>
 									<td>CPU: </td>
-									<td>{{ appData.stats[appData.stats.length-1].cpu }}%</td>
+									<td>{{ appData.stats[appData.stats.length-1].cpu || 0 }}%</td>
 								</tr>
 								<tr>
 									<td>RAM: </td>
