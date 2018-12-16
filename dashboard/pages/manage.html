@@ -34,7 +34,7 @@
 				<div class="panel-heading text-center">Basic Control</div>
 				<div class="panel-wrapper text-center">
 					<div class="panel-body">
-						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 							<a href="javascript:void(0)" ng-click="exec('restart')">
 								<div class="white-box">
 									<h3 class="text-danger"><i class="fa fa-refresh fa-2x"></i></h3>
@@ -42,7 +42,7 @@
 								</div>
 							</a>
 						</div>
-						<div ng-hide="appData.stats[appData.stats.length-1].ram==-1" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" ng-hide="appData.stats[appData.stats.length-1].ram==-1">
 							<a href="javascript:void(0)" ng-click="exec('stop')">
 								<div class="white-box">
 									<h3 class="text-danger"><i class="fa fa-pause fa-2x"></i></h3>
@@ -50,7 +50,7 @@
 								</div>
 							</a>
 						</div>
-						<div ng-show="appData.stats[appData.stats.length-1].ram==-1" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" ng-show="appData.stats[appData.stats.length-1].ram==-1">
 							<a href="javascript:void(0)" ng-click="exec('start')">
 								<div class="white-box">
 									<h3 class="text-danger"><i class="fa fa-play fa-2x"></i></h3>
@@ -58,11 +58,27 @@
 								</div>
 							</a>
 						</div>
-						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 							<a href="javascript:void(0)" ng-click="exec('sftp')">
 								<div class="white-box">
 									<h3 class="text-danger"><i class="fa fa-files-o fa-2x"></i></h3>
 									<h3 class="text-danger">Files</h3>
+								</div>
+							</a>
+						</div>
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" ng-hide="appData.git.enabled">
+							<a href="javascript:void(0)" ng-click="openModal('setGit')">
+								<div class="white-box">
+									<h3 class="text-danger"><i class="fa fa-git fa-2x"></i></h3>
+									<h3 class="text-danger">Git</h3>
+								</div>
+							</a>
+						</div>
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" ng-show="appData.git.enabled">
+							<a href="javascript:void(0)" ng-click="exec('gitPull')">
+								<div class="white-box">
+									<h3 class="text-danger"><i class="fa fa-cloud-download fa-2x"></i></h3>
+									<h3 class="text-danger">Git</h3>
 								</div>
 							</a>
 						</div>
@@ -160,26 +176,33 @@
 		</div>
 	</div>
 </div>
-<div id="delApp" class="modal fade" role="dialog">
+<div id="setGit" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header text-center">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h2 class="modal-title">Delete App</h2>
+				<h2 class="modal-title">Domain</h2>
 			</div>
 			<div class="modal-body text-white">
-				<form class="form-horizontal" name="delAppForm">
+				<form class="form-horizontal" name="setGitForm">
 					<div class="form-group">
-						<label>Enter <code>CONFIRM</code> to delete the application: *</label>
-						<input type="text" class="form-control" ng-model="delAppForm.action" required>
-						<span class="help-block">Input should be in capital.</span>
+						<label>Git Repo URL: *</label>
+						<input type="text" class="form-control" ng-model="setGitForm.git" placeholder="git@github.com:username/repo.git"
+						 required>
+						<span class="help-block">Enter git repo ssh url.</span>
+					</div>
+					<div class="form-group">
+						<label>Git Deploy Key: *</label>
+						<textarea class="form-control" ng-model="setGitForm.key" rows="3" required>
+						</textarea>
+						<span class="help-block">Enter your git deploy key.</span>
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-				<button type="button" id="btnLoad" class="btn btn-danger waves-effect" ng-disabled="delAppForm.action != 'CONFIRM'"
-				 data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting" ng-click="exec('delete')">Delete</button>
+				<button type="button" id="btnLoad" class="btn btn-danger waves-effect" ng-disabled="setGitForm.$invalid"
+				 data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting" ng-click="setGit(setGitForm.git, setGitForm.key)">Confirm</button>
 			</div>
 		</div>
 	</div>
@@ -262,6 +285,30 @@
 				<button type="button" id="btnLoad" class="btn btn-danger waves-effect" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting"
 				 ng-click="exec('sftpReset')">Reset Pass</button>
 				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="delApp" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h2 class="modal-title">Delete App</h2>
+			</div>
+			<div class="modal-body text-white">
+				<form class="form-horizontal" name="delAppForm">
+					<div class="form-group">
+						<label>Enter <code>CONFIRM</code> to delete the application: *</label>
+						<input type="text" class="form-control" ng-model="delAppForm.action" required>
+						<span class="help-block">Input should be in capital.</span>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+				<button type="button" id="btnLoad" class="btn btn-danger waves-effect" ng-disabled="delAppForm.action != 'CONFIRM'"
+				 data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting" ng-click="exec('delete')">Delete</button>
 			</div>
 		</div>
 	</div>

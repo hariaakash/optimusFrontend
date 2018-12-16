@@ -52,15 +52,16 @@ angular.module('optimusApp')
                     $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
                 });
         };
-        $scope.exec = (process) => {
+        $scope.exec = (process, data) => {
             $('#btnLoad').button('loading');
+            data = Object.assign({}, data, {
+                authKey: $rootScope.authKey,
+                containerId: $scope.containerId,
+            });
             $http({
                     method: 'POST',
                     url: $rootScope.apiUrl + 'containers/' + process,
-                    data: {
-                        authKey: $rootScope.authKey,
-                        containerId: $scope.containerId,
-                    }
+                    data,
                 })
                 .then((res) => {
                     if (res.data.status == true) {
@@ -78,7 +79,7 @@ angular.module('optimusApp')
                         }
                         $('#btnLoad').button('reset');
                     } else {
-                        $rootScope.toast('Failed', `Unable to perform: ${process}`, 'error');
+                        $rootScope.toast('Failed', res.data.msg, 'error');
                         $('#btnLoad').button('reset');
                     }
                 }, () => {
@@ -90,29 +91,19 @@ angular.module('optimusApp')
             if (~domain.indexOf('http') || ~domain.indexOf('www')) {
                 $rootScope.toast('Failed', 'Domain should not contain http or https or www.', 'error');
             } else {
-                $('#btnLoad').button('loading');
-                $http({
-                        method: 'POST',
-                        url: $rootScope.apiUrl + 'containers/setDns',
-                        data: {
-                            authKey: $rootScope.authKey,
-                            containerId: $scope.containerId,
-                            domain,
-                        }
-                    })
-                    .then((res) => {
-                        if (res.data.status == true) {
-                            $rootScope.closeModal();
-                            $state.reload();
-                            $rootScope.toast('Success', res.data.msg, 'success');
-                        } else {
-                            $('#btnLoad').button('reset');
-                            $rootScope.toast('Failed', res.data.msg, 'error');
-                        }
-                    }, () => {
-                        $('#btnLoad').button('reset');
-                        $rootScope.toast('Failed', 'Unable to establish network connection.', 'error');
-                    });
+                $scope.exec('setDns', {
+                    domain,
+                });
+            }
+        };
+        $scope.setGit = (repo, key) => {
+            if (repo.indexOf('git@') !== -1) {
+                $scope.exec('setGit', {
+                    repo,
+                    key,
+                });
+            } else {
+                $rootScope.toast('Failed', 'Invalid git url.', 'error');
             }
         };
         $scope.getAppInfo();
@@ -140,6 +131,7 @@ angular.module('optimusApp')
                         $scope.$apply();
                     });
                 } else {
+                    $rootScope.closeModal();
                     $state.reload();
                 }
             }
