@@ -1,5 +1,5 @@
 angular.module('optimusApp')
-    .controller('manageCtrl', function ($rootScope, $scope, $http, $stateParams, $state, $sce, $timeout) {
+    .controller('manageCtrl', function ($rootScope, $scope, $http, $stateParams, $state, $sce, $window) {
         $rootScope.checkAuth();
         $rootScope.profile = true;
         $scope.containerId = $stateParams.containerId;
@@ -132,7 +132,7 @@ angular.module('optimusApp')
                     });
                 } else {
                     $rootScope.closeModal();
-                    $state.reload();
+                    $window.reload();
                 }
             }
         });
