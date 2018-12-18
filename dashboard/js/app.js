@@ -196,8 +196,8 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
 // Global Controller
 angular.module('optimusApp')
     .controller('globalCtrl', ($rootScope, $location, $http, $state, $ocLazyLoad) => {
-        $rootScope.apiUrl = 'http://localhost:8080/';
-        // $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
+        // $rootScope.apiUrl = 'http://localhost:8080/';
+        $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
         $rootScope.discordUrl = 'https://discord.gg/c7EptFq';
         $rootScope.sftpUrl = 'sftp.optimuscp.io';
         $ocLazyLoad.load(['./plugins/toast/toast.min.js', './plugins/toast/toast.min.css']);
