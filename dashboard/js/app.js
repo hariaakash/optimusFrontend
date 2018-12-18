@@ -265,11 +265,12 @@ angular.module('optimusApp')
             Cookies.remove('authKey');
             delete $rootScope.authKey;
             delete $rootScope.homeData;
+            delete $rootScope.socketData;
             $rootScope.signStatus = false;
             if (x) $rootScope.toast('Success', 'Logged out.', "info");
             if ($rootScope.socket.connected) {
-                $rootScope.socketData.logout = true;
                 $rootScope.socket.disconnect();
+                delete $rootScope.socket;
             }
             $state.go('login');
         };
