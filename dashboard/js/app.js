@@ -140,6 +140,16 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
                     }]
                 }
             })
+            .state("oauth", {
+                url: "/oauth?code&state",
+                templateUrl: "pages/oauth.html",
+                controller: "oauthCtrl",
+                resolve: {
+                    loadMyCtrl: ['$ocLazyLoad', ($ocLazyLoad) => {
+                        return $ocLazyLoad.load('./ctrls/oauth.js');
+                    }]
+                }
+            })
             .state("verifyEmail", {
                 url: "/verifyEmail?email&key",
                 templateUrl: "pages/verifyEmail.html",
@@ -186,8 +196,8 @@ angular.module("optimusApp", ['angular-loading-bar', 'ui.router', 'oc.lazyLoad']
 // Global Controller
 angular.module('optimusApp')
     .controller('globalCtrl', ($rootScope, $location, $http, $state, $ocLazyLoad) => {
-        // $rootScope.apiUrl = 'http://localhost:8080/';
-        $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
+        $rootScope.apiUrl = 'http://localhost:8080/';
+        // $rootScope.apiUrl = 'https://webapi.optimuscp.io/';
         $rootScope.discordUrl = 'https://discord.gg/c7EptFq';
         $rootScope.sftpUrl = 'sftp.optimuscp.io';
         $ocLazyLoad.load(['./plugins/toast/toast.min.js', './plugins/toast/toast.min.css']);
@@ -238,13 +248,10 @@ angular.module('optimusApp')
                                 $rootScope.logout();
                                 $rootScope.toast('Error', res.data.msg, 'error');
                             }
-                        }, () => {
-                            $('#btnLoad').button('reset');
-                            $rootScope.toast('Failed', "Some error occurred, try again.", "error");
-                        });
+                        }, () => $rootScope.toast('Failed', "Some error occurred, try again.", "error"));
                 }
                 var path = $location.path();
-                if (path == '/login' || path == '/register' || path == '/verifyEmail')
+                if (path == '/login' || path == '/register' || path == '/verifyEmail' || path == '/oauth')
                     $state.go('dashboard.home');
             } else {
                 $rootScope.authKey = '';

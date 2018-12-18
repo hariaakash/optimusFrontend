@@ -1,0 +1,8 @@
+Redirecting...
+<script>
+    let protocol = window.location.protocol,
+        host = window.location.host,
+        search = window.location.search,
+        url = `${protocol}//${host}/dashboard/#!/oauth${search}`;
+    window.location.replace(url);
+</script>

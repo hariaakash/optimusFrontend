@@ -36,22 +36,21 @@
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="z-index: 2;">
 			<div class="ribbon ribbon-bookmark ribbon-left ribbon-danger">Beta</div>
-			<div class="login-box" style="background-color: inherit;">
+			<div class="login-box m-t-10" style="background-color: inherit;">
 				<div class="white-box" style="background-color: inherit;">
 					<form name="loginForm" ng-submit="loginUser()">
-						<a href="javascript:void(0)" class="text-center db"><img src="../img/logo.png" alt="Home" />
-							<br />
+						<a href="javascript:void(0)" class="text-center db"><img src="../img/logo.png" alt="Home" height="80px" />
 							<h2>Optimus Deploy</h2>
 						</a>
-						<h3 class="box-title m-t-40 m-b-0">Login</h3>
-						<div class="form-group m-t-20">
+						<h3 class="box-title m-b-10">Login</h3>
+						<div class="form-group m-b-10">
 							<label>Email address: *</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-envelope"></i></div>
 								<input type="email" class="form-control" ng-model="user.email" placeholder="Enter email" required>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group m-b-10">
 							<label>Password: *</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-lock"></i></div>
@@ -65,15 +64,20 @@
 						<a ui-sref="sendEmailVerification">
 							<p>Resend Email Activation?</p>
 						</a>
-						<div class="form-group text-center m-t-20">
+						<div class="form-group text-center">
 							<div class="col-xs-12">
-								<button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" id="btnLoad"
-								 data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting" type="submit" ng-disabled="loginForm.$invalid">Login</button>
-							</div>
-						</div>
-						<div class="form-group m-b-0">
-							<div class="text-center">
-								<p>Don't have an account? <a ui-sref="register" class="text-error m-l-5"><b>Register</b></a></p>
+								<p>Don't have an account? <a ui-sref="register" class="m-l-5"><b>Register</b></a></p>
+								<a class="btn btn-info btn-block text-uppercase" id="btnLoad" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting"
+								 type="submit" ng-disabled="loginForm.$invalid">
+									<span class="pull-left"><i class="fa fa-envelope"></i></span>Login with Email
+								</a>
+								<h5>OR</h5>
+								<a href="{{social.google.link()}}" class="btn btn-googleplus btn-block text-uppercase">
+									<span class="pull-left"><i class="fa fa-google"></i></span>Login with Google
+								</a>
+								<a href="{{social.github.link()}}" class="btn btn-github btn-block text-uppercase">
+									<span class="pull-left"><i class="fa fa-github"></i></span>Login with Github
+								</a>
 							</div>
 						</div>
 					</form>
