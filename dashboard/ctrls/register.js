@@ -27,7 +27,7 @@ angular.module('optimusApp')
             github: {
                 url: 'https://github.com/login/oauth/authorize',
                 client_id: '129800c9747092aabe46',
-                scope: 'user:email,repo_deployment,repo:status,write:repo_hook',
+                scope: 'user:email,repo,write:repo_hook',
                 redirect_uri: 'https://optimuscp.io/oauth.html?state=github',
                 params: () => {
                     let params = [];
