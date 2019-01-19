@@ -32,10 +32,17 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 
 <body>
+
+    <!-- Scroll up -->
+    <div class="scrollup">
+        <i class="fa fa-chevron-up"></i>
+    </div>
 
     <!-- Main Container -->
     <div class="web-in">
@@ -61,6 +68,8 @@
                         </div>
                         <div class="nav-content n_">
                             <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#features">Features</a></li>
                                 <li class="show-xs hidden-md hidden-lg"><a target="_blank" href="./dashboard/#!/login">Login</a></li>
                             </ul>
                         </div>
@@ -81,15 +90,124 @@
                         <span>Discord</span>
                     </a>
                 </div>
+                <i class="fa fa-chevron-down arrow"></i>
             </div>
         </header>
+
+        <section class="phone-pres-1 dark1" id="features">
+            <div class="container border">
+                <div class="row wow zoomIn">
+                    <div class="col col-md-6 col-md-offset-3 title">
+                        <h2>Revolutionizing Server Management</h2>
+                        <h4>The way you want.</h4>
+                    </div>
+                </div>
+                <div class="row m-space">
+                    <div class="col-sm-3 col-xs-6 right mh" style="height: 563px;">
+                        <div class="aligner wow slideInLeft">
+                            <div class="holder">
+                                <i class="fa fa-gears"></i>
+                                <h3>Manage</h3>
+                                <p>Manage your server in the cloud without utilizing any of your server resources.</p>
+                                <hr>
+                                <i class="fa fa-group"></i>
+                                <h3>Collaborate</h3>
+                                <p>Work together, Work remotely as a team on our collaborative management environment.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 center phones mh hidden-xs wow zoomIn" style="height: 563px;">
+                        <img class="behind" src="img/manage.png" alt="">
+                        <img src="img/manage.png" alt="">
+                    </div>
+                    <div class="col-sm-3 col-xs-6 mh" style="height: 563px;">
+                        <div class="aligner wow slideInRight">
+                            <div class="holder">
+                                <i class="fa fa-code"></i>
+                                <h3>Automate</h3>
+                                <p>Integrate your server with other web services using the powerful REST API.</p>
+                                <hr>
+                                <i class="fa fa-area-chart"></i>
+                                <h3>Monitor</h3>
+                                <p>Hassle free real time server monitoring with memory and disk usage statistics.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="iconblock center dark1">
+            <div class="container border">
+                <div class="row wow zoomIn">
+                    <div class="col col-md-6 col-md-offset-3 title">
+                        <h4>Control Panel</h4>
+                        <h2>Beautiful & Powerful</h2>
+                    </div>
+                </div>
+                <div class="row m-space">
+                    <div class="col-sm-6 col-md-3 wow slideInLeft">
+                        <i class="fa fa-cloud"></i>
+                        <h3>File Manager</h3>
+                        <p>Upload, edit, move, copy and download files and folders - all remotely.</p>
+                    </div>
+                    <div class="col-sm-6 col-md-3 wow slideInLeft">
+                        <i class="fa fa-terminal"></i>
+                        <h3>Web Terminal</h3>
+                        <p>With integrated web terminal, manage servers on the go. (works under corporate proxy)</p>
+                    </div>
+                    <div class="col-sm-6 col-md-3 wow slideInRight">
+                        <i class="fa fa-th"></i>
+                        <h3>Stack Installer</h3>
+                        <p>One-click latest stack installers to make your development easier.</p>
+                    </div>
+                    <div class="col-sm-6 col-md-3 wow slideInRight">
+                        <i class="fa fa-upload"></i>
+                        <h3>Update</h3>
+                        <p>Update your servers and keep it secured with just one click.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="promo area dark1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 col-lg-4 wow zoomInLeft">
+                        <h4 class="no-pad-top no-pad-bot">Get Started</h4>
+                        <span class="promo-heading">Optimus Deploy is free in its beta stage.</span>
+                        <a target="_blank" href="./dashboard/#!/register" class="btn"><span>Register</span></a>
+                    </div>
+                    <div class="col-sm-8 col-lg-8 wow zoomInRight">
+                        <img class="promo-image" src="img/promo.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer id="minimal" class="dark1 center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <img src="img/text-logo2.png" width="256px" alt="logo">
+                        <div class="social">
+                            <a target="_blank" href="https://twitter.com/connect_omnia"><i class="fa fa-twitter"></i></a>
+                            <a target="_blank" href="https://www.facebook.com/connectwithomnia/"><i class="fa fa-facebook"></i></a>
+                            <a target="_blank" href="https://www.linkedin.com/company/connectwithomnia/"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                        <hr>
+                        <p class="footer-text">Copyright © Omni@<br /> Made with <i class="fa fa-heart pulse"></i> in
+                            India.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
     </div>
     <!-- end of web-in -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.0/pace.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.3/headroom.min.js"></script>
+    <script src="js/main.min.js"></script>
 </body>
 
 </html>
